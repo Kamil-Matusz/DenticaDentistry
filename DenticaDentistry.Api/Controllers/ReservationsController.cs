@@ -1,4 +1,5 @@
-﻿using Dentica_Dentistry.Application.Services;
+﻿using Dentica_Dentistry.Application.Commands;
+using Dentica_Dentistry.Application.Services;
 using Dentica_Dentistry.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,8 +19,8 @@ public class ReservationsController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Reservation>> GetAllReservations() => Ok(_reservationService.GetAllReservations());
 
-    [HttpGet("{id:int}")]
-    public ActionResult<Reservation> GetReservation(int id)
+    [HttpGet("{id:guid}")]
+    public ActionResult<Reservation> GetReservation(Guid id)
     {
         var reservation = _reservationService.GetReservation(id);
         if (reservation is null)
@@ -31,21 +32,22 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult AddReservation(Reservation reservation)
+    public ActionResult AddReservation(CreateReservation command)
     {
-        var reservationId = _reservationService.CreateReservation(reservation);
+        var reservationId = _reservationService.CreateReservation(command with{ ReservationId = Guid.NewGuid()});
         if (reservationId is null)
         {
             return BadRequest();
         }
-        return CreatedAtAction(nameof(GetReservation), new { reservationId = reservation.ReservationId }, null);
+        
+        
+        return CreatedAtAction(nameof(GetReservation), new { reservationId}, null);
     }
 
-    [HttpPut("{id:int}")]
-    public ActionResult ChangeReservationDate(int id, Reservation reservation)
+    [HttpPut("{id:guid}")]
+    public ActionResult ChangeReservationDate(Guid id, ChangeReservationDate command)
     {
-        reservation.ReservationId = id;
-        if (_reservationService.UpdateReservationDate(id, reservation))
+        if (_reservationService.UpdateReservationDate(command with{ReservationId = id}))
         {
             return NoContent();
         }
@@ -53,10 +55,10 @@ public class ReservationsController : ControllerBase
         return NotFound();
     }
     
-    [HttpDelete("{id:int}")]
-    public ActionResult DeleteReservation(int id)
+    [HttpDelete("{id:guid}")]
+    public ActionResult DeleteReservation(Guid id)
     {
-        if (_reservationService.DeleteReservation(id))
+        if (_reservationService.DeleteReservation(new DeleteReservation(id)))
         {
             return NoContent();
         }

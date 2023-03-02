@@ -2,17 +2,22 @@
 
 public class Reservation
 {
-    public int ReservationId { get; set; }
-    public string ReservationName { get; set; }
+    public Guid ReservationId { get; set; }
+    public int DentistIndustryId { get; set; }
     public string BookerName { get; set; }
     public DateTime ReservationDate { get; set; }
 
-    public Reservation(int reservationId,string reservationName ,string bookerName, DateTime reservationDate)
+    public Reservation(Guid reservationId,int dentistIndustryId ,string bookerName, DateTime reservationDate)
     {
         ReservationId = reservationId;
-        ReservationName = reservationName;
+        DentistIndustryId = dentistIndustryId;
         BookerName = bookerName;
-        ReservationDate = reservationDate;
+        ChangeReservationDate(reservationDate);
+    }
+
+    public void ChangeReservationDate(DateTime date)
+    {
+        ReservationDate = date;
     }
     
 }

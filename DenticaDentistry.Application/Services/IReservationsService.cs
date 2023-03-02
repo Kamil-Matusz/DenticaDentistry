@@ -1,12 +1,14 @@
-﻿using Dentica_Dentistry.Core.Entities;
+﻿using Dentica_Dentistry.Application.Commands;
+using Dentica_Dentistry.Application.DTO;
+using Dentica_Dentistry.Core.Entities;
 
 namespace Dentica_Dentistry.Application.Services;
 
 public interface IReservationsService
 {
-    IEnumerable<Reservation> GetAllReservations();
-    Reservation GetReservation(int id);
-    int? CreateReservation(Reservation reservation);
-    bool UpdateReservationDate(int id, Reservation reservation);
-    bool DeleteReservation(int id);
+    IEnumerable<ReservationDto> GetAllReservations();
+    ReservationDto GetReservation(Guid id);
+    Guid? CreateReservation(CreateReservation command);
+    bool UpdateReservationDate(ChangeReservationDate command);
+    bool DeleteReservation(DeleteReservation command);
 }

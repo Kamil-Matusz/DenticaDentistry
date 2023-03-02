@@ -1,8 +1,10 @@
-﻿namespace Dentica_Dentistry.Core.Entities;
+﻿using Dentica_Dentistry.Core.Exceptions;
+
+namespace Dentica_Dentistry.Core.Entities;
 
 public class DentistIndustry
 {
-    /*private readonly HashSet<Reservation> _reservations = new();
+    private readonly HashSet<Reservation> _reservations = new();
 
     public int DentistIndustryId { get; }
     public string Name { get; }
@@ -23,7 +25,12 @@ public class DentistIndustry
         var now = DateTime.UtcNow.Date;
         if (reservation.ReservationDate <= now)
         {
-            return default;
+            throw new InvalidReservationDateException(reservation.ReservationDate);
         }
-    }*/
+
+        _reservations.Add(reservation);
+    }
+
+    public void RemoveReservation(Guid reservationId) =>
+        _reservations.RemoveWhere(x => x.ReservationId == reservationId);
 }
