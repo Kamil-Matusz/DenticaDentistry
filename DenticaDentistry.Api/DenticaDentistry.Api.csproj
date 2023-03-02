@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DenticaDentistry.Application\DenticaDentistry.Application.csproj" />
     <ProjectReference Include="..\DenticaDentistry.Infrastructure\DenticaDentistry.Infrastructure.csproj" />
   </ItemGroup>
