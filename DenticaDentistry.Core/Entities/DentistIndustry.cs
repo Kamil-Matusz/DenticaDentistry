@@ -22,7 +22,7 @@ public class DentistIndustry
 
     public void AddReservation(Reservation reservation)
     {
-        var now = DateTime.UtcNow.Date;
+        var now = DateTime.UtcNow;
         if (reservation.ReservationDate <= now)
         {
             throw new InvalidReservationDateException(reservation.ReservationDate);
@@ -31,6 +31,5 @@ public class DentistIndustry
         _reservations.Add(reservation);
     }
 
-    public void RemoveReservation(Guid reservationId) =>
-        _reservations.RemoveWhere(x => x.ReservationId == reservationId);
+    public void RemoveReservation(Guid reservationId) => _reservations.RemoveWhere(x => x.ReservationId == reservationId);
 }

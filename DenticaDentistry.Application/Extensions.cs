@@ -8,6 +8,7 @@ public static class Extensions
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddScoped<IReservationsService,ReservationsService>();
+        services.AddScoped<IClock, Clock>();
         return services;
     }
 }

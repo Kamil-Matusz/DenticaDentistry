@@ -1,4 +1,5 @@
 ﻿using Dentica_Dentistry.Application.Commands;
+using Dentica_Dentistry.Application.DTO;
 using Dentica_Dentistry.Application.Services;
 using Dentica_Dentistry.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,10 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Reservation>> GetAllReservations() => Ok(_reservationService.GetAllReservations());
+    public ActionResult<IEnumerable<ReservationDto>> GetAllReservations() => Ok(_reservationService.GetAllReservations());
 
     [HttpGet("{id:guid}")]
-    public ActionResult<Reservation> GetReservation(Guid id)
+    public ActionResult<ReservationDto> GetReservation(Guid id)
     {
         var reservation = _reservationService.GetReservation(id);
         if (reservation is null)

@@ -6,6 +6,7 @@ namespace Dentica_Dentistry.Application.Services;
 
 public class ReservationsService : IReservationsService
 {
+    private readonly IClock _clock;
     private static readonly List<DentistIndustry> _dentistIndustriesList = new()
     {
         new DentistIndustry(1, "Lakierowanie zębow", 100.00, "Naprawa szkliwa zębów"),
@@ -15,6 +16,11 @@ public class ReservationsService : IReservationsService
         new DentistIndustry(5, "Wizyta Kontrolna", 50.00, "Kontrolne badanie zębów"),
     };
 
+    public ReservationsService(IClock clock)
+    {
+        _clock = clock;
+    }
+    
     public IEnumerable<ReservationDto> GetAllReservations() => _dentistIndustriesList
         .SelectMany(x => x.Reservations)
         .Select(x => new ReservationDto
@@ -38,15 +44,13 @@ public class ReservationsService : IReservationsService
 
     public Guid? CreateReservation(CreateReservation command)
     {
-        var dentistIndustryName =
-            _dentistIndustriesList.SingleOrDefault(x => x.DentistIndustryId == command.DentistIndustryId);
+        var dentistIndustryName = _dentistIndustriesList.SingleOrDefault(x => x.DentistIndustryId == command.DentistIndustryId);
         if (dentistIndustryName is null)
         {
             return default;
         }
 
-        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,
-            command.BookerName, command.ReservationDate);
+        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate);
         
         dentistIndustryName.AddReservation(reservation);
         
@@ -68,7 +72,7 @@ public class ReservationsService : IReservationsService
             return false;
         }
 
-        if (existingReservation.ReservationDate <= DateTime.UtcNow.Date)
+        if (existingReservation.ReservationDate <= _clock.CurrentDate())
         {
             return false;
         }
@@ -85,8 +89,7 @@ public class ReservationsService : IReservationsService
             return false;
         }
 
-        var existingReservation =
-            dentistIndustryId.Reservations.SingleOrDefault(x => x.ReservationId == command.ReservationId);
+        var existingReservation = dentistIndustryId.Reservations.SingleOrDefault(x => x.ReservationId == command.ReservationId);
         if (existingReservation is null)
         {
             return false;
@@ -96,7 +99,6 @@ public class ReservationsService : IReservationsService
         return true;
     }
 
-    private DentistIndustry GetReservations(Guid reservationId) =>
-        _dentistIndustriesList.SingleOrDefault(x => x.Reservations.Any(r => r.ReservationId == reservationId));
+    private DentistIndustry GetReservations(Guid reservationId) => _dentistIndustriesList.SingleOrDefault(x => x.Reservations.Any(r => r.ReservationId == reservationId));
 
 }
