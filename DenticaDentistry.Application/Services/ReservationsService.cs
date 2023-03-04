@@ -16,7 +16,7 @@ public class ReservationsService : IReservationsService
         new DentistIndustry(5, "Wizyta Kontrolna", 50.00, "Kontrolne badanie zębów"),
     };
 
-    public ReservationsService(IClock clock)
+    public ReservationsService(IClock clock,List<DentistIndustry> dentistIndustries)
     {
         _clock = clock;
     }

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DenticaDentistry.Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DenticaDentistry.Infrastructure", "DenticaDentistry.Infrastructure\DenticaDentistry.Infrastructure.csproj", "{E2F31F28-A19E-4C9F-9B9B-FA29D48B71FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DenticaDentistry.UnitTests", "DenticaDentistry.UnitTests\DenticaDentistry.UnitTests.csproj", "{77E86687-C8B1-4AB8-A713-027BEE413FFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{E2F31F28-A19E-4C9F-9B9B-FA29D48B71FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2F31F28-A19E-4C9F-9B9B-FA29D48B71FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2F31F28-A19E-4C9F-9B9B-FA29D48B71FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E86687-C8B1-4AB8-A713-027BEE413FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E86687-C8B1-4AB8-A713-027BEE413FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E86687-C8B1-4AB8-A713-027BEE413FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E86687-C8B1-4AB8-A713-027BEE413FFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +52,6 @@ Global
 		{2203A390-2DD2-4FFC-B418-565463DE6C62} = {E77AD293-6ED9-43A3-B7A0-320612BE2491}
 		{E31AFBB5-D0D4-4BEA-BC24-9429F52D0443} = {E77AD293-6ED9-43A3-B7A0-320612BE2491}
 		{E2F31F28-A19E-4C9F-9B9B-FA29D48B71FC} = {E77AD293-6ED9-43A3-B7A0-320612BE2491}
+		{77E86687-C8B1-4AB8-A713-027BEE413FFA} = {A4F149F8-8168-461B-8875-1923C7DEF605}
 	EndGlobalSection
 EndGlobal
