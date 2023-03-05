@@ -2,7 +2,7 @@ using Dentica_Dentistry.Core.Entities;
 
 namespace Dentica_Dentistry.Application.Repositories;
 
-public class InMemoryDentistIndustryRepository : IDentistIndustryRepository
+internal class InMemoryDentistIndustryRepository : IDentistIndustryRepository
 {
     private readonly List<DentistIndustry> _dentistIndustries;
 

@@ -11,7 +11,6 @@ public class ReservationServiceTests
     private readonly IReservationsService _reservationsService;
     private readonly List<DentistIndustry> _dentistIndustriesList;
     
-
     public ReservationServiceTests(IReservationsService reservationsService)
     {
         _reservationsService = reservationsService;

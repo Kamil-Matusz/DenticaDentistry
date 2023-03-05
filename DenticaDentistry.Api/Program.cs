@@ -1,9 +1,13 @@
 using Dentica_Dentistry.Application;
+using Dentica_Dentistry.Core;
+using Dentica_Dentistry.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddApplication();
+    .AddCore()
+    .AddApplication()
+    .AddInfrastructure();
 
 // Add services to the container.
 

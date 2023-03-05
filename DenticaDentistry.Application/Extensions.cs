@@ -17,7 +17,6 @@ public static class Extensions
             new DentistIndustry(4, "Leczenie Próchnicy", 100.00, "Usuwanie prochnicy z zęba"),
             new DentistIndustry(5, "Wizyta Kontrolna", 50.00, "Kontrolne badanie zębów"),
         });*/
-        services.AddSingleton<IDentistIndustryRepository, InMemoryDentistIndustryRepository>();
         services.AddScoped<IReservationsService,ReservationsService>();
         services.AddScoped<IClock, Clock>();
         return services;
