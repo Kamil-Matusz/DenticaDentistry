@@ -1,5 +1,6 @@
 ﻿using Dentica_Dentistry.Application.Commands;
 using Dentica_Dentistry.Application.DTO;
+using Dentica_Dentistry.Application.Repositories;
 using Dentica_Dentistry.Core.Entities;
 
 namespace Dentica_Dentistry.Application.Services;
@@ -7,21 +8,17 @@ namespace Dentica_Dentistry.Application.Services;
 public class ReservationsService : IReservationsService
 {
     private readonly IClock _clock;
-    private static readonly List<DentistIndustry> _dentistIndustriesList = new()
-    {
-        new DentistIndustry(1, "Lakierowanie zębow", 100.00, "Naprawa szkliwa zębów"),
-        new DentistIndustry(2, "Czyszczenie Kamienia", 200.00, "Czyszczenie zębów z nasady kamieniowej"),
-        new DentistIndustry(3, "Leczenie Kanałowe", 100.00, "Usuwanie obumarłych fragmentów zębów"),
-        new DentistIndustry(4, "Leczenie Próchnicy", 100.00, "Usuwanie prochnicy z zęba"),
-        new DentistIndustry(5, "Wizyta Kontrolna", 50.00, "Kontrolne badanie zębów"),
-    };
+    private readonly IDentistIndustryRepository _dentistIndustryRepository;
 
-    public ReservationsService(IClock clock,List<DentistIndustry> dentistIndustries)
+    public ReservationsService(IClock clock,IDentistIndustryRepository dentistIndustryRepository)
     {
+        
         _clock = clock;
+        _dentistIndustryRepository = dentistIndustryRepository;
     }
     
-    public IEnumerable<ReservationDto> GetAllReservations() => _dentistIndustriesList
+    public IEnumerable<ReservationDto> GetAllReservations() => _dentistIndustryRepository
+        .GetAllReservation()
         .SelectMany(x => x.Reservations)
         .Select(x => new ReservationDto
         {
@@ -44,7 +41,8 @@ public class ReservationsService : IReservationsService
 
     public Guid? CreateReservation(CreateReservation command)
     {
-        var dentistIndustryName = _dentistIndustriesList.SingleOrDefault(x => x.DentistIndustryId == command.DentistIndustryId);
+        var dentistIndustryId = command.DentistIndustryId;
+        var dentistIndustryName = _dentistIndustryRepository.GetReservation(dentistIndustryId);
         if (dentistIndustryName is null)
         {
             return default;
@@ -99,6 +97,6 @@ public class ReservationsService : IReservationsService
         return true;
     }
 
-    private DentistIndustry GetReservations(Guid reservationId) => _dentistIndustriesList.SingleOrDefault(x => x.Reservations.Any(r => r.ReservationId == reservationId));
+    private DentistIndustry GetReservations(Guid reservationId) => _dentistIndustryRepository.GetAllReservation().SingleOrDefault(x => x.Reservations.Any(r => r.ReservationId == reservationId));
 
 }
