@@ -2,10 +2,10 @@
 
 public class Reservation
 {
-    public Guid ReservationId { get; set; }
-    public int DentistIndustryId { get; set; }
-    public string BookerName { get; set; }
-    public DateTime ReservationDate { get; set; }
+    public Guid ReservationId { get; private set; }
+    public int DentistIndustryId { get; private set; }
+    public string BookerName { get; private set; }
+    public DateTime ReservationDate { get; private set; }
 
     public Reservation(Guid reservationId,int dentistIndustryId ,string bookerName, DateTime reservationDate)
     {

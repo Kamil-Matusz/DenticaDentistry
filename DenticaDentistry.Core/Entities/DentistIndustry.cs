@@ -6,12 +6,12 @@ public class DentistIndustry
 {
     private readonly HashSet<Reservation> _reservations = new();
 
-    public int DentistIndustryId { get; }
-    public string Name { get; }
-    public double Price { get; }
-    public string Description { get; }
+    public int DentistIndustryId { get; set; }
+    public string Name { get; set; }
+    public double Price { get; set; }
+    public string Description { get; set; }
     public IEnumerable<Reservation> Reservations => _reservations;
-
+    
     public DentistIndustry(int dentistIndustryId, string name, double price, string description)
     {
         DentistIndustryId = dentistIndustryId;

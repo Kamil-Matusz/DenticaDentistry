@@ -2,11 +2,11 @@ using Dentica_Dentistry.Core.Entities;
 
 namespace Dentica_Dentistry.Application.Repositories;
 
-internal class InMemoryDentistIndustryRepository : IDentistIndustryRepository
+internal class InMemoryReservationRepository : IReservationRepository
 {
     private readonly List<DentistIndustry> _dentistIndustries;
 
-    public InMemoryDentistIndustryRepository()
+    public InMemoryReservationRepository()
     {
         _dentistIndustries = new (){
             new DentistIndustry(1, "Lakierowanie zębow", 100.00, "Naprawa szkliwa zębów"),

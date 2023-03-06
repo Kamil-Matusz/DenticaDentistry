@@ -2,7 +2,7 @@ using Dentica_Dentistry.Core.Entities;
 
 namespace Dentica_Dentistry.Application.Repositories;
 
-public interface IDentistIndustryRepository
+public interface IReservationRepository
 {
     IEnumerable<DentistIndustry> GetAllReservation();
     DentistIndustry GetReservation(int id);
