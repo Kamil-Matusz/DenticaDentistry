@@ -1,7 +1,7 @@
 ﻿using Dentica_Dentistry.Application.Commands;
 using Dentica_Dentistry.Application.DTO;
-using Dentica_Dentistry.Application.Repositories;
 using Dentica_Dentistry.Core.Entities;
+using Dentica_Dentistry.Core.Repositories;
 
 namespace Dentica_Dentistry.Application.Services;
 

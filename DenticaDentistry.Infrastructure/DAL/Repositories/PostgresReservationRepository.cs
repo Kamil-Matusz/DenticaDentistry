@@ -1,10 +1,10 @@
 using Dentica_Dentistry.Core.Entities;
-using Dentica_Dentistry.Infrastructure.DAL;
+using Dentica_Dentistry.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dentica_Dentistry.Application.Repositories;
+namespace Dentica_Dentistry.Infrastructure.DAL.Repositories;
 
-public class PostgresReservationRepository : IReservationRepository
+internal sealed class PostgresReservationRepository : IReservationRepository
 {
     private readonly DenticaDentistryDbContext _dbContext;
 

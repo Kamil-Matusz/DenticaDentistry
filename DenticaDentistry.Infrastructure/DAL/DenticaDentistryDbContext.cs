@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Dentica_Dentistry.Infrastructure.DAL;
 
-public class DenticaDentistryDbContext : DbContext
+internal class DenticaDentistryDbContext : DbContext
 {
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<DentistIndustry> DentistIndustries { get; set; }
 
-    public DenticaDentistryDbContext(DbContextOptions<DenticaDentistryDbContext> dbContextOptions) : base(dbContextOptions) 
+    public DenticaDentistryDbContext(DbContextOptions<DenticaDentistryDbContext> options) : base(options) 
     {
     }
 

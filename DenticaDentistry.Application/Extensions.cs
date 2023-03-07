@@ -1,5 +1,4 @@
-﻿using Dentica_Dentistry.Application.Repositories;
-using Dentica_Dentistry.Application.Services;
+﻿using Dentica_Dentistry.Application.Services;
 using Dentica_Dentistry.Core.Entities;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,4 +1,5 @@
 using Dentica_Dentistry.Core.Entities;
+using Dentica_Dentistry.Core.Repositories;
 
 namespace Dentica_Dentistry.Application.Repositories;
 

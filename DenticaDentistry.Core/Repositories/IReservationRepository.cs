@@ -1,6 +1,6 @@
 using Dentica_Dentistry.Core.Entities;
 
-namespace Dentica_Dentistry.Application.Repositories;
+namespace Dentica_Dentistry.Core.Repositories;
 
 public interface IReservationRepository
 {
