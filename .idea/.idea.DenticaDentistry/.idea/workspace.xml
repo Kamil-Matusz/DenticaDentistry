@@ -8,14 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="920bacac-7467-4a15-bb86-b3f655967ee4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Exceptions/ExceptionMiddleware.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/ReservationsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/ReservationsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IReservationsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IReservationsService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/ReservationsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/ReservationsService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Repositories/IReservationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Repositories/IReservationRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/InMemoryReservationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/InMemoryReservationRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/PostgresReservationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/PostgresReservationRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.UnitTests/Service/ReservationServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.UnitTests/Service/ReservationServiceTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +26,9 @@
       </map>
     </option>
     <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/DenticaDentistry.Infrastructure/Exceptions/ExceptionMiddleware.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -157,7 +157,10 @@
       <workItem from="1678203633330" duration="3614000" />
       <workItem from="1678210565688" duration="4021000" />
       <workItem from="1678350640969" duration="6347000" />
-      <workItem from="1678440164203" duration="717000" />
+      <workItem from="1678440164203" duration="1444000" />
+      <workItem from="1678443657638" duration="1423000" />
+      <workItem from="1678453154923" duration="591000" />
+      <workItem from="1678460803881" duration="3425000" />
     </task>
     <servers />
   </component>
