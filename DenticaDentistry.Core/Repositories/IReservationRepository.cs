@@ -4,10 +4,10 @@ namespace Dentica_Dentistry.Core.Repositories;
 
 public interface IReservationRepository
 {
-    IEnumerable<DentistIndustry> GetAllReservation();
-    DentistIndustry GetReservation(int id);
-    void Add(DentistIndustry dentistIndustry);
-    void Update(DentistIndustry dentistIndustry);
-    void Delete(DentistIndustry dentistIndustry);
+    Task<IEnumerable<DentistIndustry>> GetAllReservationAsync();
+    Task<DentistIndustry> GetReservationAsync(int id);
+    Task AddAsync(DentistIndustry dentistIndustry);
+    Task UpdateAsync(DentistIndustry dentistIndustry);
+    Task DeleteAsync(DentistIndustry dentistIndustry);
 
 }

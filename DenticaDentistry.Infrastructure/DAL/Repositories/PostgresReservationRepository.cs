@@ -13,30 +13,35 @@ internal sealed class PostgresReservationRepository : IReservationRepository
         _dbContext = dbContext;
     }
 
-    public IEnumerable<DentistIndustry> GetAllReservation() => _dbContext.DentistIndustries
-        .Include(x => x.Reservations)
-        .ToList();
+    public async Task<IEnumerable<DentistIndustry>> GetAllReservationAsync()
+    {
+       var result = await _dbContext.DentistIndustries
+            .Include(x => x.Reservations)
+            .ToListAsync();
 
-    public DentistIndustry GetReservation(int id) =>
+       return result.AsEnumerable();
+    }
+
+    public Task<DentistIndustry> GetReservationAsync(int id) =>
         _dbContext.DentistIndustries
             .Include(x => x.Reservations)
-            .SingleOrDefault(x => x.DentistIndustryId == id);
-
-    public void Add(DentistIndustry dentistIndustry)
+            .SingleOrDefaultAsync(x => x.DentistIndustryId == id);
+    
+    public async Task AddAsync(DentistIndustry dentistIndustry)
     {
-        _dbContext.Add(dentistIndustry);
-        _dbContext.SaveChanges();
+        await _dbContext.AddAsync(dentistIndustry);
+        await _dbContext.SaveChangesAsync();
     }
 
-    public void Update(DentistIndustry dentistIndustry)
+    public async Task UpdateAsync(DentistIndustry dentistIndustry)
     {
         _dbContext.Update(dentistIndustry);
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 
-    public void Delete(DentistIndustry dentistIndustry)
+    public async Task DeleteAsync(DentistIndustry dentistIndustry)
     {
         _dbContext.Remove(dentistIndustry);
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 }
