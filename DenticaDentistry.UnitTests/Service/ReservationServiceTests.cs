@@ -25,13 +25,13 @@ public class ReservationServiceTests
     }
     
     [Fact]
-    public void add_reservation_should_succeed()
+    public async Task add_reservation_should_succeed()
     {
         // Arrange
         var command = new CreateReservation(Guid.NewGuid(), 1, "John Doe", DateTime.UtcNow.AddDays(1));
         
         // Act
-        var reservationId = _reservationsService.CreateReservation(command);
+        var reservationId = await _reservationsService.CreateReservationAsync(command);
         
         // Assert
         reservationId.ShouldNotBeNull();

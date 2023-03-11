@@ -18,12 +18,12 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<ReservationDto>> GetAllReservations() => Ok(_reservationService.GetAllReservations());
+    public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllReservations() => Ok(await _reservationService.GetAllReservationsAsync());
 
     [HttpGet("{id:guid}")]
-    public ActionResult<ReservationDto> GetReservation(Guid id)
+    public async Task<ActionResult<ReservationDto>> GetReservation(Guid id)
     {
-        var reservation = _reservationService.GetReservation(id);
+        var reservation = await _reservationService.GetReservationAsync(id);
         if (reservation is null)
         {
             return NotFound();
@@ -33,22 +33,21 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult AddReservation(CreateReservation command)
+    public async Task<ActionResult> AddReservation(CreateReservation command)
     {
-        var reservationId = _reservationService.CreateReservation(command with{ ReservationId = Guid.NewGuid()});
+        var reservationId = await _reservationService.CreateReservationAsync(command with{ ReservationId = Guid.NewGuid()});
         if (reservationId is null)
         {
             return BadRequest();
         }
         
-        
         return CreatedAtAction(nameof(GetReservation), new { reservationId}, null);
     }
 
     [HttpPut("{id:guid}")]
-    public ActionResult ChangeReservationDate(Guid id, ChangeReservationDate command)
+    public async Task<ActionResult> ChangeReservationDate(Guid id, ChangeReservationDate command)
     {
-        if (_reservationService.UpdateReservationDate(command with{ReservationId = id}))
+        if (await _reservationService.UpdateReservationDateAsync(command with{ReservationId = id}))
         {
             return NoContent();
         }
@@ -57,9 +56,9 @@ public class ReservationsController : ControllerBase
     }
     
     [HttpDelete("{id:guid}")]
-    public ActionResult DeleteReservation(Guid id)
+    public async Task<ActionResult> DeleteReservation(Guid id)
     {
-        if (_reservationService.DeleteReservation(new DeleteReservation(id)))
+        if (await _reservationService.DeleteReservationAsync(new DeleteReservation(id)))
         {
             return NoContent();
         }

@@ -1,9 +1,6 @@
 using Dentica_Dentistry.Application;
 using Dentica_Dentistry.Core;
-using Dentica_Dentistry.Core.Entities;
 using Dentica_Dentistry.Infrastructure;
-using Dentica_Dentistry.Infrastructure.DAL;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseInfrastructure();
 
 app.UseAuthorization();
 

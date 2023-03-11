@@ -16,33 +16,32 @@ public class ReservationsService : IReservationsService
         _clock = clock;
         _reservationRepository = reservationRepository;
     }
-    
-    public IEnumerable<ReservationDto> GetAllReservations() => _reservationRepository
-        .GetAllReservation()
-        .SelectMany(x => x.Reservations)
-        .Select(x => new ReservationDto
-        {
-            ReservationId = x.ReservationId,
-            DentistIndustryId = x.DentistIndustryId,
-            BookerName = x.BookerName,
-            ReservationDate = x.ReservationDate
-        });
 
-    public ReservationDto GetReservation(Guid id)
+    public async Task<IEnumerable<ReservationDto>> GetAllReservationsAsync()
     {
-        var reservation = GetAllReservations().SingleOrDefault(x => x.ReservationId == id);
-        if (reservation is null)
-        {
-            return null;
-        }
-
-        return reservation;
+        var reservation = await _reservationRepository.GetAllReservationAsync();
+        
+            return reservation
+                .SelectMany(x => x.Reservations)
+                .Select(x => new ReservationDto
+            {
+                ReservationId = x.ReservationId,
+                DentistIndustryId = x.DentistIndustryId,
+                BookerName = x.BookerName,
+                ReservationDate = x.ReservationDate
+            });
     }
 
-    public Guid? CreateReservation(CreateReservation command)
+    public async Task<ReservationDto> GetReservationAsync(Guid id)
+    {
+        var reservation = await GetAllReservationsAsync();
+        return reservation.SingleOrDefault(x => x.ReservationId == id);
+    }
+
+    public async Task<Guid?> CreateReservationAsync(CreateReservation command)
     {
         var dentistIndustryId = command.DentistIndustryId;
-        var dentistIndustryName = _reservationRepository.GetReservation(dentistIndustryId);
+        var dentistIndustryName = await _reservationRepository.GetReservationAsync(dentistIndustryId);
         if (dentistIndustryName is null)
         {
             return default;
@@ -51,13 +50,13 @@ public class ReservationsService : IReservationsService
         var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate);
         
         dentistIndustryName.AddReservation(reservation);
-        _reservationRepository.Update(dentistIndustryName);
+        await _reservationRepository.UpdateAsync(dentistIndustryName);
         return reservation.ReservationId;
     }
     
-    public bool UpdateReservationDate(ChangeReservationDate command)
+    public async Task<bool> UpdateReservationDateAsync(ChangeReservationDate command)
     {
-        var dentistIndustry = GetReservations(command.ReservationId);
+        var dentistIndustry = await GetReservationsAsync(command.ReservationId);
         if (dentistIndustry is null)
         {
             return false;
@@ -75,13 +74,13 @@ public class ReservationsService : IReservationsService
             return false;
         }
         existingReservation.ChangeReservationDate(command.ReservationDate);
-        _reservationRepository.Update(dentistIndustry);
+        await _reservationRepository.UpdateAsync(dentistIndustry);
         return true;
     }
     
-    public bool DeleteReservation(DeleteReservation command)
+    public async Task<bool> DeleteReservationAsync(DeleteReservation command)
     {
-        var dentistIndustryId = GetReservations(command.ReservationId);
+        var dentistIndustryId = await GetReservationsAsync(command.ReservationId);
         if (dentistIndustryId is null)
         {
             return false;
@@ -94,10 +93,15 @@ public class ReservationsService : IReservationsService
         }
 
        dentistIndustryId.RemoveReservation(command.ReservationId);
-       _reservationRepository.Delete(dentistIndustryId);
+       await _reservationRepository.DeleteAsync(dentistIndustryId);
         return true;
     }
 
-    private DentistIndustry GetReservations(Guid reservationId) => _reservationRepository.GetAllReservation().SingleOrDefault(x => x.Reservations.Any(r => r.ReservationId == reservationId));
+    private async Task<DentistIndustry> GetReservationsAsync(Guid reservationId)
+    {
+        var reservations = await _reservationRepository.GetAllReservationAsync();
+            
+        return reservations.SingleOrDefault(x => x.Reservations.Any(r => r.ReservationId == reservationId));
+    }
 
 }

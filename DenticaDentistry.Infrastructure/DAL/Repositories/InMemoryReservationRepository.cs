@@ -18,16 +18,24 @@ internal class InMemoryReservationRepository : IReservationRepository
         };
     }
 
-    public IEnumerable<DentistIndustry> GetAllReservation() => _dentistIndustries;
+    public Task<IEnumerable<DentistIndustry>> GetAllReservationAsync() => Task.FromResult(_dentistIndustries.AsEnumerable());
 
-    public DentistIndustry GetReservation(int id) => _dentistIndustries.SingleOrDefault(x => x.DentistIndustryId == id);
+    public Task<DentistIndustry> GetReservationAsync(int id) => Task.FromResult(_dentistIndustries.SingleOrDefault(x => x.DentistIndustryId == id));
 
-    public void Add(DentistIndustry dentistIndustry) => _dentistIndustries.Add(dentistIndustry);
-
-    public void Update(DentistIndustry dentistIndustry)
+    public Task AddAsync(DentistIndustry dentistIndustry)
     {
-        throw new NotImplementedException();
+        _dentistIndustries.Add(dentistIndustry);
+        return Task.CompletedTask;
     }
 
-    public void Delete(DentistIndustry dentistIndustry) => _dentistIndustries.Remove(dentistIndustry);
+    public Task UpdateAsync(DentistIndustry dentistIndustry)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task DeleteAsync(DentistIndustry dentistIndustry)
+    {
+        _dentistIndustries.Remove(dentistIndustry);
+        return Task.CompletedTask;
+    }
 }

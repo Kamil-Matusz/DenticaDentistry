@@ -6,9 +6,9 @@ namespace Dentica_Dentistry.Application.Services;
 
 public interface IReservationsService
 {
-    IEnumerable<ReservationDto> GetAllReservations();
-    ReservationDto GetReservation(Guid id);
-    Guid? CreateReservation(CreateReservation command);
-    bool UpdateReservationDate(ChangeReservationDate command);
-    bool DeleteReservation(DeleteReservation command);
+    Task<IEnumerable<ReservationDto>> GetAllReservationsAsync();
+    Task<ReservationDto> GetReservationAsync(Guid id);
+    Task<Guid?> CreateReservationAsync(CreateReservation command);
+    Task<bool> UpdateReservationDateAsync(ChangeReservationDate command);
+    Task<bool> DeleteReservationAsync(DeleteReservation command);
 }
