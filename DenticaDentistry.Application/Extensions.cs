@@ -17,6 +17,7 @@ public static class Extensions
             new DentistIndustry(5, "Wizyta Kontrolna", 50.00, "Kontrolne badanie zębów"),
         });*/
         services.AddScoped<IReservationsService,ReservationsService>();
+        services.AddScoped<IDentistsService,DentistsService>();
         services.AddScoped<IClock, Clock>();
         return services;
     }

@@ -19,6 +19,7 @@ internal static class Extensions
         
         services.AddDbContext<DenticaDentistryDbContext>(x => x.UseNpgsql(options.connectionString));
         services.AddScoped<IReservationRepository, PostgresReservationRepository>();
+        services.AddScoped<IDentistIndustryRepository, PostgresDentistIndustryRepository>();
         services.AddHostedService<DatabaseInitializer>();
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
