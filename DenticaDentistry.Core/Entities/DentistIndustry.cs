@@ -15,8 +15,8 @@ public class DentistIndustry
     public DentistIndustry(int dentistIndustryId, string name, double price, string description)
     {
         DentistIndustryId = dentistIndustryId;
-        Name = name;
-        Price = price;
+        ChangeName(name);
+        ChangePrice(price);
         Description = description;
     }
 
@@ -29,6 +29,16 @@ public class DentistIndustry
         }
 
         _reservations.Add(reservation);
+    }
+
+    public void ChangeName(string name)
+    {
+        Name = name;
+    }
+
+    public void ChangePrice(double price)
+    {
+        Price = price;
     }
 
     public void RemoveReservation(Guid reservationId) => _reservations.RemoveWhere(x => x.ReservationId == reservationId);
