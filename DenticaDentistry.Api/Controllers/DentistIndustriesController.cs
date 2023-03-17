@@ -1,24 +1,35 @@
-using Dentica_Dentistry.Application.Commands;
-using Dentica_Dentistry.Application.DTO;
-using Dentica_Dentistry.Application.Services;
+using DenticaDentistry.Application.Abstractions;
+using DenticaDentistry.Application.Commands;
+using DenticaDentistry.Application.DTO;
+using DenticaDentistry.Application.Queries;
+using DenticaDentistry.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dentica_Dentistry.Api.Controllers;
+namespace DenticaDentistry.Api.Controllers;
 
 [Route("services")]
 public class DentistIndustriesController : ControllerBase
 {
-    private readonly IDentistsService _dentistsService;
+    private readonly ICommandHandler<CreateDentistService> _createDentistServiceHandler;
+    private readonly ICommandHandler<DeleteDentistService> _deleteDentistServiceHandler;
+    private readonly ICommandHandler<ChangeDentistServiceName> _changeDentistServiceNameHandler;
+    private readonly ICommandHandler<ChangeDentistServicePrice> _changeDentistServicePriceHandler;
 
-    public DentistIndustriesController(IDentistsService dentistsService)
+    private readonly IQueryHandler<GetAllDentistServices, IEnumerable<DentistIndustryDto>> _getAllDentistServicesHandler;
+
+    public DentistIndustriesController(ICommandHandler<CreateDentistService> createDentistServiceHandler, ICommandHandler<DeleteDentistService> deleteDentistServiceHandler, ICommandHandler<ChangeDentistServiceName> changeDentistServiceNameHandler, ICommandHandler<ChangeDentistServicePrice> changeDentistServicePriceHandler, IQueryHandler<GetAllDentistServices, IEnumerable<DentistIndustryDto>> getAllDentistServicesHandler)
     {
-        _dentistsService = dentistsService;
+        _createDentistServiceHandler = createDentistServiceHandler;
+        _deleteDentistServiceHandler = deleteDentistServiceHandler;
+        _changeDentistServiceNameHandler = changeDentistServiceNameHandler;
+        _changeDentistServicePriceHandler = changeDentistServicePriceHandler;
+        _getAllDentistServicesHandler = getAllDentistServicesHandler;
     }
-    
+
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<DentistIndustryDto>>> GetAllServices() => Ok(await _dentistsService.GetAllServicesAsync());
+    public async Task<ActionResult<IEnumerable<DentistIndustryDto>>> GetAllServices([FromQuery] GetAllDentistServices query) => Ok(await _getAllDentistServicesHandler.HandlerAsync(query));
     
-    [HttpGet("{id:int}")]
+    /*[HttpGet("{id:int}")]
     public async Task<ActionResult<DentistIndustryDto>> GetService(int id)
     {
         var service = await _dentistsService.GetServiceAsync(id);
@@ -28,39 +39,26 @@ public class DentistIndustriesController : ControllerBase
         }
 
         return Ok(service);
-    }
+    }*/
 
     [HttpPost]
     public async Task<ActionResult> AddDentistService(CreateDentistService command)
     {
-        var dentistIndustryId = await _dentistsService.CreateDentistServiceAsync(command with { DentistIndustryId = new int() });
-        if (dentistIndustryId is null)
-        {
-            return BadRequest();
-        }
-
-        return CreatedAtAction(nameof(GetService), new { dentistIndustryId }, null);
+        await _createDentistServiceHandler.HandlerAsync(command);
+        return NoContent();
     }
 
-    [HttpPut("{id:int}")]
-    public async Task<ActionResult> ChangeServiceName(ChangeDentistServiceName command)
+    [HttpPut("{derntistIndustryId:int}")]
+    public async Task<ActionResult> ChangeServiceName(int dentistIndustryId,ChangeDentistServiceName command)
     {
-        if (await _dentistsService.UpdateDentistServiceName(command with { DentistIndustryId = command.DentistIndustryId}))
-        {
-            return NoContent();
-        }
-
-        return NotFound();
+        await _changeDentistServiceNameHandler.HandlerAsync(command with { DentistIndustryId = dentistIndustryId });
+        return NoContent();
     }
     
-    [HttpDelete("{id:int}")]
-    public async Task<ActionResult> DeleteService(int id)
+    [HttpDelete("{dentistIndustryId:int}")]
+    public async Task<ActionResult> DeleteService(int dentistIndustryId)
     {
-        if (await _dentistsService.DeleteServiceAsync(new DeleteService(id)))
-        {
-            return NoContent();
-        }
-
-        return NotFound();
+        await _deleteDentistServiceHandler.HandlerAsync(new DeleteDentistService(dentistIndustryId));
+        return NoContent();
     }
 }

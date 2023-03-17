@@ -1,3 +1,5 @@
-namespace Dentica_Dentistry.Application.Commands;
+using DenticaDentistry.Application.Abstractions;
 
-public record DeleteService(int DentistIndustryId);
+namespace DenticaDentistry.Application.Commands;
+
+public record DeleteDentistService(int DentistIndustryId) : ICommand;

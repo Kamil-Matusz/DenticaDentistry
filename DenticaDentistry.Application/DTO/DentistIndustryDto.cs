@@ -1,4 +1,4 @@
-namespace Dentica_Dentistry.Application.DTO;
+namespace DenticaDentistry.Application.DTO;
 
 public class DentistIndustryDto
 {

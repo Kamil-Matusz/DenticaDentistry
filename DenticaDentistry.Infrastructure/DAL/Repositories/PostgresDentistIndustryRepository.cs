@@ -1,8 +1,8 @@
-using Dentica_Dentistry.Core.Entities;
-using Dentica_Dentistry.Core.Repositories;
+using DenticaDentistry.Core.Entities;
+using DenticaDentistry.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dentica_Dentistry.Infrastructure.DAL.Repositories;
+namespace DenticaDentistry.Infrastructure.DAL.Repositories;
 
 internal sealed class PostgresDentistIndustryRepository  : IDentistIndustryRepository
 {

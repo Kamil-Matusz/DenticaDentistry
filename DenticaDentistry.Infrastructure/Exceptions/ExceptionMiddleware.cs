@@ -1,7 +1,7 @@
-using Dentica_Dentistry.Core.Exceptions;
+using DenticaDentistry.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 
-namespace Dentica_Dentistry.Infrastructure.Exceptions;
+namespace DenticaDentistry.Infrastructure.Exceptions;
 
 internal sealed class ExceptionMiddleware : IMiddleware
 {

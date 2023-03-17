@@ -1,11 +1,11 @@
-using Dentica_Dentistry.Application.Repositories;
-using Dentica_Dentistry.Core.Repositories;
-using Dentica_Dentistry.Infrastructure.DAL.Repositories;
+using DenticaDentistry.Application.Repositories;
+using DenticaDentistry.Core.Repositories;
+using DenticaDentistry.Infrastructure.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dentica_Dentistry.Infrastructure.DAL;
+namespace DenticaDentistry.Infrastructure.DAL;
 
 internal static class Extensions
 {

@@ -1,5 +1,5 @@
-﻿using Dentica_Dentistry.Core.Entities;
-using Dentica_Dentistry.Core.Exceptions;
+﻿using DenticaDentistry.Core.Entities;
+using DenticaDentistry.Core.Exceptions;
 using Shouldly;
 using Xunit;
 

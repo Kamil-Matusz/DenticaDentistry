@@ -1,3 +1,5 @@
-namespace Dentica_Dentistry.Application.Commands;
+using DenticaDentistry.Application.Abstractions;
 
-public record ChangeDentistServiceName(int DentistIndustryId,string Name);
+namespace DenticaDentistry.Application.Commands;
+
+public record ChangeDentistServiceName(int DentistIndustryId,string Name) : ICommand;

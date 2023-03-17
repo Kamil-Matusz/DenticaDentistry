@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Dentica_Dentistry.Infrastructure.DAL.Migrations
+namespace DenticaDentistry.Infrastructure.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class create_new_column : Migration

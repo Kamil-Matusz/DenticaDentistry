@@ -1,3 +1,5 @@
-namespace Dentica_Dentistry.Application.Commands;
+using DenticaDentistry.Application.Abstractions;
 
-public record CreateDentistService(int DentistIndustryId, string Name, double Price, string Description);
+namespace DenticaDentistry.Application.Commands;
+
+public record CreateDentistService(int DentistIndustryId, string Name, double Price, string Description) : ICommand;

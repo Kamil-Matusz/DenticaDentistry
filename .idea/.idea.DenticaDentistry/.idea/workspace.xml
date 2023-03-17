@@ -8,17 +8,73 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="920bacac-7467-4a15-bb86-b3f655967ee4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeDentistServiceName.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeDentistServicePrice.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/CreateDentistService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/DeleteDentistService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Abstractions/ICommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Abstractions/ICommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Abstractions/IQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Abstractions/IQueryHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/ChangeDentistServiceNameHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/ChangeDentistServicePriceHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/ChangeReservationDateHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/CreateDentistServiceHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/CreateReservationHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/DeleteDentistServiceHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/DeleteReservationHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Exceptions/DentistIndustryIdNotFoundException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Exceptions/DentistIndustryServiceNotFoundException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Exceptions/ReservationNotFoundException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Queries/GetAllDentistServices.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Queries/GetAllReservations.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/AppOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Handlers/Extensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Handlers/GetAllDentistServicesHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Handlers/GetAllReservationsHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/DentistIndustriesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/DentistIndustriesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/ReservationsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/ReservationsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeDentistServiceName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeDentistServiceName.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeDentistServicePrice.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeDentistServicePrice.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeReservationDate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/ChangeReservationDate.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/CreateDentistService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/CreateDentistService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/CreateReservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/CreateReservation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/DeleteDentistService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/DeleteDentistService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/DeleteReservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/DeleteReservation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/DTO/DentistIndustryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/DTO/DentistIndustryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/DTO/ReservationDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/DTO/ReservationDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/DenticaDentistry.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/DenticaDentistry.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/Clock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/Clock.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/DentistsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/DentistsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IClock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IClock.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IDentistsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IDentistsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IReservationsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/IReservationsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Services/ReservationsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Services/ReservationsService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Entities/DentistIndustry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Entities/DentistIndustry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Entities/Reservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Entities/Reservation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/CustomException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/CustomException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidReservationDateException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidReservationDateException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Extensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Repositories/IDentistIndustryRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Repositories/IDentistIndustryRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Core/Repositories/IReservationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Repositories/IReservationRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Configurations/DentistIndustryConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Configurations/DentistIndustryConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Configurations/ReservationConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Configurations/ReservationConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DatabaseInitializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DatabaseInitializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DatabaseOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DatabaseOptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DenticaDentistryDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DenticaDentistryDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306180739_Inint.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306180739_Inint.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306180739_Inint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306180739_Inint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306204031_create_new_column.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306204031_create_new_column.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306204031_create_new_column.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/20230306204031_create_new_column.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/DenticaDentistryDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/DenticaDentistryDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/InMemoryReservationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/InMemoryReservationRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/PostgresDentistIndustryRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/PostgresDentistIndustryRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/PostgresReservationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/PostgresReservationRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Exceptions/ExceptionMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Exceptions/ExceptionMiddleware.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.UnitTests/Entities/DentistIndustryTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.UnitTests/Entities/DentistIndustryTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.UnitTests/Service/ReservationServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.UnitTests/Service/ReservationServiceTests.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +227,17 @@
       <workItem from="1678630833620" duration="2609000" />
       <workItem from="1678647146271" duration="120000" />
       <workItem from="1678648082142" duration="1629000" />
+      <workItem from="1678650446026" duration="533000" />
+      <workItem from="1678743520264" duration="171000" />
+      <workItem from="1678916383697" duration="236000" />
+      <workItem from="1678954625984" duration="5316000" />
+      <workItem from="1678965665810" duration="3652000" />
+      <workItem from="1678975879723" duration="2497000" />
+      <workItem from="1678987678145" duration="4712000" />
+      <workItem from="1678994194515" duration="279000" />
+      <workItem from="1679066951812" duration="1895000" />
+      <workItem from="1679072588709" duration="1546000" />
+      <workItem from="1679075973834" duration="1263000" />
     </task>
     <servers />
   </component>

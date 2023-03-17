@@ -1,6 +1,6 @@
-using Dentica_Dentistry.Application;
-using Dentica_Dentistry.Core;
-using Dentica_Dentistry.Infrastructure;
+using DenticaDentistry.Application;
+using DenticaDentistry.Core;
+using DenticaDentistry.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

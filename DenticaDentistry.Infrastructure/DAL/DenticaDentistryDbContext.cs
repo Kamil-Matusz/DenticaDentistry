@@ -1,8 +1,8 @@
-using Dentica_Dentistry.Core.Entities;
+using DenticaDentistry.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Dentica_Dentistry.Infrastructure.DAL;
+namespace DenticaDentistry.Infrastructure.DAL;
 
 internal class DenticaDentistryDbContext : DbContext
 {

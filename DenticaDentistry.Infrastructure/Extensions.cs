@@ -1,12 +1,13 @@
-using Dentica_Dentistry.Application.Repositories;
-using Dentica_Dentistry.Core.Repositories;
-using Dentica_Dentistry.Infrastructure.DAL;
-using Dentica_Dentistry.Infrastructure.Exceptions;
+using DenticaDentistry.Application.Abstractions;
+using DenticaDentistry.Infrastructure.DAL;
+using DenticaDentistry.Application.Repositories;
+using DenticaDentistry.Core.Repositories;
+using DenticaDentistry.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dentica_Dentistry.Infrastructure;
+namespace DenticaDentistry.Infrastructure;
 
 public static class Extensions
 {
@@ -15,6 +16,14 @@ public static class Extensions
         services.AddSingleton<IReservationRepository, InMemoryReservationRepository>();
         services.AddPostgres(configuration);
         services.AddSingleton<ExceptionMiddleware>();
+        
+        var infrastructureAssembly = typeof(AppOptions).Assembly;
+
+        services.Scan(s => s.FromAssemblies(infrastructureAssembly)
+            .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+        
         return services;
     }
     

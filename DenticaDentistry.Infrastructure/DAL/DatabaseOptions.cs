@@ -1,4 +1,4 @@
-namespace Dentica_Dentistry.Infrastructure.DAL;
+namespace DenticaDentistry.Infrastructure.DAL;
 
 internal sealed class DatabaseOptions
 {

@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DenticaDentistry.Application\DenticaDentistry.Application.csproj" />
       <ProjectReference Include="..\DenticaDentistry.Core\DenticaDentistry.Core.csproj" />
     </ItemGroup>
 
