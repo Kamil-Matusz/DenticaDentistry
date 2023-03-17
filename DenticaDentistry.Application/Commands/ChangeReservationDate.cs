@@ -1,3 +1,5 @@
-﻿namespace Dentica_Dentistry.Application.Commands;
+﻿using DenticaDentistry.Application.Abstractions;
 
-public record ChangeReservationDate(Guid ReservationId, DateTime ReservationDate);
+namespace DenticaDentistry.Application.Commands;
+
+public record ChangeReservationDate(Guid ReservationId, DateTime ReservationDate) : ICommand;

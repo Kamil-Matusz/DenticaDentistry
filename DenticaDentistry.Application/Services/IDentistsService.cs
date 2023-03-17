@@ -1,7 +1,7 @@
-using Dentica_Dentistry.Application.Commands;
-using Dentica_Dentistry.Application.DTO;
+using DenticaDentistry.Application.Commands;
+using DenticaDentistry.Application.DTO;
 
-namespace Dentica_Dentistry.Application.Services;
+namespace DenticaDentistry.Application.Services;
 
 public interface IDentistsService
 {
@@ -10,5 +10,5 @@ public interface IDentistsService
     Task<int?> CreateDentistServiceAsync(CreateDentistService command);
     Task<bool> UpdateDentistServiceName(ChangeDentistServiceName command);
     Task<bool> UpdateDentistServicePrice(ChangeDentistServicePrice command);
-    Task<bool> DeleteServiceAsync(DeleteService command);
+    Task<bool> DeleteServiceAsync(DeleteDentistService command);
 }

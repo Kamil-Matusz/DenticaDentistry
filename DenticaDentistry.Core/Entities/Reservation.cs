@@ -1,4 +1,4 @@
-﻿namespace Dentica_Dentistry.Core.Entities;
+﻿namespace DenticaDentistry.Core.Entities;
 
 public class Reservation
 {

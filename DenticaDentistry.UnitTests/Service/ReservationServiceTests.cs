@@ -1,6 +1,6 @@
-﻿using Dentica_Dentistry.Application.Commands;
-using Dentica_Dentistry.Application.Services;
-using Dentica_Dentistry.Core.Entities;
+﻿using DenticaDentistry.Application.Commands;
+using DenticaDentistry.Application.Services;
+using DenticaDentistry.Core.Entities;
 using Shouldly;
 using Xunit;
 

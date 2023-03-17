@@ -1,3 +1,5 @@
-﻿namespace Dentica_Dentistry.Application.Commands;
+﻿using DenticaDentistry.Application.Abstractions;
 
-public record CreateReservation(Guid ReservationId, int DentistIndustryId, string BookerName, DateTime ReservationDate);
+namespace DenticaDentistry.Application.Commands;
+
+public record CreateReservation(Guid ReservationId, int DentistIndustryId, string BookerName, DateTime ReservationDate)  : ICommand;

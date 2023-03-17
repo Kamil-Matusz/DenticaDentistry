@@ -1,8 +1,8 @@
-using Dentica_Dentistry.Core.Entities;
+using DenticaDentistry.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dentica_Dentistry.Infrastructure.DAL.Configurations;
+namespace DenticaDentistry.Infrastructure.DAL.Configurations;
 
 internal sealed class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
 {

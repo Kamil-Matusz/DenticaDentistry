@@ -1,4 +1,4 @@
-﻿namespace Dentica_Dentistry.Core.Exceptions;
+﻿namespace DenticaDentistry.Core.Exceptions;
 
 public abstract class CustomException : Exception
 {

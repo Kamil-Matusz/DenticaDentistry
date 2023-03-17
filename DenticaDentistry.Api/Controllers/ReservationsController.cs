@@ -1,7 +1,7 @@
-﻿using Dentica_Dentistry.Application.Commands;
-using Dentica_Dentistry.Application.DTO;
-using Dentica_Dentistry.Application.Services;
-using Dentica_Dentistry.Core.Entities;
+﻿using DenticaDentistry.Application.Abstractions;
+using DenticaDentistry.Application.Commands;
+using DenticaDentistry.Application.DTO;
+using DenticaDentistry.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentica_Dentistry.Api.Controllers;
@@ -10,17 +10,23 @@ namespace Dentica_Dentistry.Api.Controllers;
 [ApiController]
 public class ReservationsController : ControllerBase
 {
-    private readonly IReservationsService _reservationService;
+    private readonly ICommandHandler<CreateReservation> _createReservationHandler;
+    private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
+    private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
+    private readonly IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> _getAllReservationHandler;
 
-    public ReservationsController(IReservationsService reservationService)
+    public ReservationsController(ICommandHandler<CreateReservation> createReservationHandler, ICommandHandler<DeleteReservation> deleteReservationHandler, ICommandHandler<ChangeReservationDate> changeReservationDateHandler, IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> getAllReservationHandler)
     {
-        _reservationService = reservationService;
+        _createReservationHandler = createReservationHandler;
+        _deleteReservationHandler = deleteReservationHandler;
+        _changeReservationDateHandler = changeReservationDateHandler;
+        _getAllReservationHandler = getAllReservationHandler;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllReservations() => Ok(await _reservationService.GetAllReservationsAsync());
+    public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllReservations([FromQuery] GetAllReservations query) => Ok(await _getAllReservationHandler.HandlerAsync(query));
 
-    [HttpGet("{id:guid}")]
+    /*[HttpGet("{id:guid}")]
     public async Task<ActionResult<ReservationDto>> GetReservation(Guid id)
     {
         var reservation = await _reservationService.GetReservationAsync(id);
@@ -30,40 +36,31 @@ public class ReservationsController : ControllerBase
         }
 
         return Ok(reservation);
-    }
+    }*/
 
     [HttpPost]
-    public async Task<ActionResult> AddReservation(CreateReservation command)
+    public async Task<ActionResult> AddReservation(int dentistIndustryId,CreateReservation command)
     {
-        var reservationId = await _reservationService.CreateReservationAsync(command with{ ReservationId = Guid.NewGuid()});
-        if (reservationId is null)
+        await _createReservationHandler.HandlerAsync(command with
         {
-            return BadRequest();
-        }
-        
-        return CreatedAtAction(nameof(GetReservation), new { reservationId}, null);
+            ReservationId = Guid.NewGuid(),
+            DentistIndustryId = dentistIndustryId,
+        });
+        return NoContent();
     }
 
-    [HttpPut("{id:guid}")]
-    public async Task<ActionResult> ChangeReservationDate(Guid id, ChangeReservationDate command)
+    [HttpPut("{reservationId:guid}")]
+    public async Task<ActionResult> ChangeReservationDate(Guid reservationId, ChangeReservationDate command)
     {
-        if (await _reservationService.UpdateReservationDateAsync(command with{ReservationId = id}))
-        {
-            return NoContent();
-        }
-
-        return NotFound();
+        await _changeReservationDateHandler.HandlerAsync(command with { ReservationId = reservationId});
+        return NoContent();
     }
     
-    [HttpDelete("{id:guid}")]
-    public async Task<ActionResult> DeleteReservation(Guid id)
+    [HttpDelete("{reservationId:guid}")]
+    public async Task<ActionResult> DeleteReservation(Guid reservationId)
     {
-        if (await _reservationService.DeleteReservationAsync(new DeleteReservation(id)))
-        {
-            return NoContent();
-        }
-
-        return NotFound();
+        await _deleteReservationHandler.HandlerAsync(new DeleteReservation(reservationId));
+        return NoContent();
     }
 
 }

@@ -1,8 +1,9 @@
-using Dentica_Dentistry.Core.Entities;
-using Dentica_Dentistry.Core.Repositories;
+using DenticaDentistry.Core.Entities;
+using DenticaDentistry.Core.Repositories;
+using DenticaDentistry.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dentica_Dentistry.Infrastructure.DAL.Repositories;
+namespace DenticaDentistry.Infrastructure.DAL.Repositories;
 
 internal sealed class PostgresReservationRepository : IReservationRepository
 {
@@ -17,6 +18,7 @@ internal sealed class PostgresReservationRepository : IReservationRepository
     {
        var result = await _dbContext.DentistIndustries
             .Include(x => x.Reservations)
+            .AsNoTracking()
             .ToListAsync();
 
        return result.AsEnumerable();

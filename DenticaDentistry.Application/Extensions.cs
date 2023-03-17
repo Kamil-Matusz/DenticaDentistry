@@ -1,8 +1,9 @@
-﻿using Dentica_Dentistry.Application.Services;
-using Dentica_Dentistry.Core.Entities;
+﻿using DenticaDentistry.Application.Abstractions;
+using DenticaDentistry.Core.Entities;
+using DenticaDentistry.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dentica_Dentistry.Application;
+namespace DenticaDentistry.Application;
 
 public static class Extensions
 {
@@ -16,9 +17,17 @@ public static class Extensions
             new DentistIndustry(4, "Leczenie Próchnicy", 100.00, "Usuwanie prochnicy z zęba"),
             new DentistIndustry(5, "Wizyta Kontrolna", 50.00, "Kontrolne badanie zębów"),
         });*/
-        services.AddScoped<IReservationsService,ReservationsService>();
-        services.AddScoped<IDentistsService,DentistsService>();
+        //services.AddScoped<IReservationsService,ReservationsService>();
+        //services.AddScoped<IDentistsService,DentistsService>();
+        var applicationAssembly = typeof(ICommandHandler<>).Assembly;
+
+        services.Scan(s => s.FromAssemblies(applicationAssembly)
+            .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+        
         services.AddScoped<IClock, Clock>();
+        
         return services;
     }
 }

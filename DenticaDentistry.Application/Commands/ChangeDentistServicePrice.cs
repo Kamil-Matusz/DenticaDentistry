@@ -1,4 +1,6 @@
-namespace Dentica_Dentistry.Application.Commands;
+using DenticaDentistry.Application.Abstractions;
 
-public record ChangeDentistServicePrice(int DentistIndustryId, double Price);
+namespace DenticaDentistry.Application.Commands;
+
+public record ChangeDentistServicePrice(int DentistIndustryId, double Price) : ICommand;
   

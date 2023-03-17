@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dentica_Dentistry.Core;
+namespace DenticaDentistry.Core;
 
 public static class Extensions
 {

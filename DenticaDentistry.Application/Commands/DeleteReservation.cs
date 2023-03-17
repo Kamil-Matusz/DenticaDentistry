@@ -1,3 +1,5 @@
-﻿namespace Dentica_Dentistry.Application.Commands;
+﻿using DenticaDentistry.Application.Abstractions;
 
-public record DeleteReservation(Guid ReservationId);
+namespace DenticaDentistry.Application.Commands;
+
+public record DeleteReservation(Guid ReservationId) : ICommand;

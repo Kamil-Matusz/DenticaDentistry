@@ -1,4 +1,4 @@
-﻿namespace Dentica_Dentistry.Application.Services;
+﻿namespace DenticaDentistry.Application.Services;
 
 public class Clock : IClock
 {

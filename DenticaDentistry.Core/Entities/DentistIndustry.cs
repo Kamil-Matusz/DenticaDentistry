@@ -1,6 +1,6 @@
-﻿using Dentica_Dentistry.Core.Exceptions;
+﻿using DenticaDentistry.Core.Exceptions;
 
-namespace Dentica_Dentistry.Core.Entities;
+namespace DenticaDentistry.Core.Entities;
 
 public class DentistIndustry
 {

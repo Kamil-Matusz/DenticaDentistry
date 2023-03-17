@@ -1,4 +1,4 @@
-﻿namespace Dentica_Dentistry.Core.Exceptions;
+﻿namespace DenticaDentistry.Core.Exceptions;
 
 public class InvalidReservationDateException : CustomException
 {

@@ -1,9 +1,9 @@
-using Dentica_Dentistry.Application.Commands;
-using Dentica_Dentistry.Application.DTO;
-using Dentica_Dentistry.Core.Entities;
-using Dentica_Dentistry.Core.Repositories;
+using DenticaDentistry.Application.Commands;
+using DenticaDentistry.Application.DTO;
+using DenticaDentistry.Core.Entities;
+using DenticaDentistry.Core.Repositories;
 
-namespace Dentica_Dentistry.Application.Services;
+namespace DenticaDentistry.Application.Services;
 
 public class DentistsService : IDentistsService
 {
@@ -66,7 +66,7 @@ public class DentistsService : IDentistsService
         return true;
     }
 
-    public async Task<bool> DeleteServiceAsync(DeleteService command)
+    public async Task<bool> DeleteServiceAsync(DeleteDentistService command)
     {
         var dentistIndustryId = await GetDentistServicesAsync(command.DentistIndustryId);
         if (dentistIndustryId is null)

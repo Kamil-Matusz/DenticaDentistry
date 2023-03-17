@@ -1,9 +1,9 @@
-﻿using Dentica_Dentistry.Application.Commands;
-using Dentica_Dentistry.Application.DTO;
-using Dentica_Dentistry.Core.Entities;
-using Dentica_Dentistry.Core.Repositories;
+﻿using DenticaDentistry.Application.Commands;
+using DenticaDentistry.Application.DTO;
+using DenticaDentistry.Core.Entities;
+using DenticaDentistry.Core.Repositories;
 
-namespace Dentica_Dentistry.Application.Services;
+namespace DenticaDentistry.Application.Services;
 
 public class ReservationsService : IReservationsService
 {

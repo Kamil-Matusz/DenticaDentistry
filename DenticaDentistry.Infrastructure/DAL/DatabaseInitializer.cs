@@ -1,9 +1,9 @@
-using Dentica_Dentistry.Core.Entities;
+using DenticaDentistry.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Dentica_Dentistry.Infrastructure.DAL;
+namespace DenticaDentistry.Infrastructure.DAL;
 
 internal sealed class DatabaseInitializer : IHostedService
 {

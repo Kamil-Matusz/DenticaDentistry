@@ -1,7 +1,7 @@
-using Dentica_Dentistry.Core.Entities;
-using Dentica_Dentistry.Core.Repositories;
+using DenticaDentistry.Core.Entities;
+using DenticaDentistry.Core.Repositories;
 
-namespace Dentica_Dentistry.Application.Repositories;
+namespace DenticaDentistry.Application.Repositories;
 
 internal class InMemoryReservationRepository : IReservationRepository
 {
