@@ -1,5 +1,7 @@
+using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Application.Repositories;
 using DenticaDentistry.Core.Repositories;
+using DenticaDentistry.Infrastructure.DAL.Decorators;
 using DenticaDentistry.Infrastructure.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,8 @@ internal static class Extensions
         services.AddDbContext<DenticaDentistryDbContext>(x => x.UseNpgsql(options.connectionString));
         services.AddScoped<IReservationRepository, PostgresReservationRepository>();
         services.AddScoped<IDentistIndustryRepository, PostgresDentistIndustryRepository>();
+        services.AddScoped<IUnitOfWork, PostgresUnitOfWork>();
+        services.TryDecorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
         services.AddHostedService<DatabaseInitializer>();
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
