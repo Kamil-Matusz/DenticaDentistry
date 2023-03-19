@@ -1,4 +1,7 @@
+using Dentica_Dentistry.Infrastructure.DAL.Handlers;
+using Dentica_Dentistry.Infrastructure.DAL.Repositories;
 using DenticaDentistry.Application.Abstractions;
+using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Repositories;
 using DenticaDentistry.Core.Repositories;
 using DenticaDentistry.Infrastructure.DAL.Decorators;
@@ -22,6 +25,7 @@ internal static class Extensions
         services.AddDbContext<DenticaDentistryDbContext>(x => x.UseNpgsql(options.connectionString));
         services.AddScoped<IReservationRepository, PostgresReservationRepository>();
         services.AddScoped<IDentistIndustryRepository, PostgresDentistIndustryRepository>();
+        services.AddScoped<IUserRepository, PostgresUserRepository>();
         services.AddScoped<IUnitOfWork, PostgresUnitOfWork>();
         services.TryDecorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
         services.AddHostedService<DatabaseInitializer>();

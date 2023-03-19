@@ -20,4 +20,11 @@ internal static class Extensions
         Price = entity.Price,
         Description = entity.Description
     };
+    
+    public static UserDto AsUsersDto(this User entity) => new()
+    {
+        UserId = entity.UserId,
+        Username = entity.Username,
+        Fullname = entity.Fullname
+    };
 }

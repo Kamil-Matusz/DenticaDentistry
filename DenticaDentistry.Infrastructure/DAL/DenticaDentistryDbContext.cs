@@ -8,6 +8,7 @@ internal class DenticaDentistryDbContext : DbContext
 {
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<DentistIndustry> DentistIndustries { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public DenticaDentistryDbContext(DbContextOptions<DenticaDentistryDbContext> options) : base(options) 
     {
