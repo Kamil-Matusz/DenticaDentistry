@@ -8,40 +8,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="920bacac-7467-4a15-bb86-b3f655967ee4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/UsersController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/SignUpHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/SignUp.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/DTO/UserDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Exceptions/EmailAlreadyInUseException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Exceptions/UsernameAlreadyInUseException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Queries/GetAllUsers.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Queries/GetUser.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Security/IPasswordManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Entities/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidEmailException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidEntityIdExceptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidFullNameException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidPasswordException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidRoleException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Exceptions/InvalidUsernameException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/Repositories/IUserRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/ValueObjects/Email.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/ValueObjects/Fullname.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/ValueObjects/Password.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/ValueObjects/Role.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/ValueObjects/UserId.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Core/ValueObjects/Username.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Configurations/UserConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Handlers/GetAllUsersHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Handlers/GetUserHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Repositories/PostgresUserRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Security/Extensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Security/PasswordManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/SignInHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/SignIn.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/DTO/JwtDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Exceptions/InvalidCredentialsException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Security/IAuthenticator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Security/ITokenStorage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/AuthOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/Authenticator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/Extensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/HttpContextTokenStorage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DenticaDentistryDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/DenticaDentistryDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Handlers/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Handlers/Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/DenticaDentistryDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DAL/Migrations/DenticaDentistryDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/UsersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -215,7 +196,9 @@
       <workItem from="1679089640327" duration="161000" />
       <workItem from="1679151477274" duration="2805000" />
       <workItem from="1679243851374" duration="5702000" />
-      <workItem from="1679251341852" duration="2064000" />
+      <workItem from="1679251341852" duration="5232000" />
+      <workItem from="1679332362767" duration="5695000" />
+      <workItem from="1679343544463" duration="662000" />
     </task>
     <servers />
   </component>

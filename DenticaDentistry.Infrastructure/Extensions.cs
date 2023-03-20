@@ -1,3 +1,4 @@
+using Dentica_Dentistry.Infrastructure.Auth;
 using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Infrastructure.DAL;
@@ -19,6 +20,8 @@ public static class Extensions
         services.AddPostgres(configuration);
         services.AddSingleton<ExceptionMiddleware>();
         services.AddSecurity();
+        services.AddAuth(configuration);
+        services.AddHttpContextAccessor();
         
         var infrastructureAssembly = typeof(AppOptions).Assembly;
 
@@ -33,7 +36,8 @@ public static class Extensions
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
         app.UseMiddleware<ExceptionMiddleware>();
-        
+        app.UseAuthentication();
+        app.UseAuthorization();
         return app;
     }
 }

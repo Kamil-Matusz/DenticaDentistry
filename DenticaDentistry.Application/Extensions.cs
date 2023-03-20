@@ -26,7 +26,7 @@ public static class Extensions
             .AsImplementedInterfaces()
             .WithScopedLifetime());
         
-        services.AddScoped<IClock, Clock>();
+        services.AddSingleton<IClock, Clock>();
         
         return services;
     }
