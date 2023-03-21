@@ -8,20 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="920bacac-7467-4a15-bb86-b3f655967ee4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/Handlers/SignInHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Commands/SignIn.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/DTO/JwtDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Exceptions/InvalidCredentialsException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Security/IAuthenticator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Security/ITokenStorage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/AuthOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/Authenticator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/Extensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Auth/HttpContextTokenStorage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DenticaDentistry/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/DentistIndustriesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/DentistIndustriesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/ReservationsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/ReservationsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/Controllers/UsersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Api/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenticaDentistry.Application/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Application/Extensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/DenticaDentistry.Infrastructure.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DenticaDentistry.Infrastructure/Extensions.cs" afterDir="false" />
     </list>
@@ -198,7 +188,9 @@
       <workItem from="1679243851374" duration="5702000" />
       <workItem from="1679251341852" duration="5232000" />
       <workItem from="1679332362767" duration="5695000" />
-      <workItem from="1679343544463" duration="662000" />
+      <workItem from="1679343544463" duration="1231000" />
+      <workItem from="1679410955711" duration="1496000" />
+      <workItem from="1679416891896" duration="1876000" />
     </task>
     <servers />
   </component>

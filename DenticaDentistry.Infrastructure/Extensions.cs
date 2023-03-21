@@ -9,6 +9,7 @@ using DenticaDentistry.Infrastructure.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 namespace DenticaDentistry.Infrastructure;
 
@@ -29,6 +30,16 @@ public static class Extensions
             .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
+
+        services.AddSwaggerGen(swagger =>
+        {
+            swagger.EnableAnnotations();
+            swagger.SwaggerDoc("v1", new OpenApiInfo()
+            {
+                Title = "Dentica Dentistry",
+                Version = "V1"
+            });
+        });
         
         return services;
     }

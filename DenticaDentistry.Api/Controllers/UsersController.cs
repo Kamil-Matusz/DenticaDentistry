@@ -6,6 +6,7 @@ using DenticaDentistry.Application.Security;
 using DenticaDentistry.Core.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dentica_Dentistry.Api.Controllers;
 
@@ -30,11 +31,16 @@ public class UsersController : ControllerBase
 
     [Authorize(Roles = "admin")]
     [HttpGet]
+    [SwaggerOperation("Get list of all users")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers([FromQuery] GetAllUsers query)
         => Ok(await _getAllUsersHandler.HandlerAsync(query));
     
     [Authorize]
     [HttpGet("me")]
+    [SwaggerOperation("The logged in user can view information about himself")]
     public async Task<ActionResult<UserDto>> GetInfoAboutMe()
     {
         if (string.IsNullOrWhiteSpace(User.Identity?.Name))
@@ -48,6 +54,10 @@ public class UsersController : ControllerBase
     
     [Authorize(Roles = "admin")]
     [HttpGet("{userId:guid}")]
+    [SwaggerOperation("Displaying information about user based on ID")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<UserDto>> GetUser(Guid userId)
     {
         var user = await _getUserHandler.HandlerAsync(new GetUser {UserId = userId});
@@ -60,6 +70,9 @@ public class UsersController : ControllerBase
     }
     
     [HttpPost("signUp")]
+    [SwaggerOperation("Create the user account")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> SignUp(SignUp command)
     {
         command = command with { UserId = Guid.NewGuid() };
@@ -69,6 +82,9 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("signIn")]
+    [SwaggerOperation("Sign in the user and return the JSON Web Token")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<JwtDto>> SignIn(SignIn command)
     {
         await _signInHandler.HandlerAsync(command);

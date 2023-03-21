@@ -3,6 +3,7 @@ using DenticaDentistry.Application.Commands;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dentica_Dentistry.Api.Controllers;
 
@@ -22,8 +23,11 @@ public class ReservationsController : ControllerBase
         _changeReservationDateHandler = changeReservationDateHandler;
         _getAllReservationHandler = getAllReservationHandler;
     }
-
+    
     [HttpGet]
+    [SwaggerOperation("Displaying all reservations")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllReservations([FromQuery] GetAllReservations query) => Ok(await _getAllReservationHandler.HandlerAsync(query));
 
     /*[HttpGet("{id:guid}")]
@@ -39,6 +43,9 @@ public class ReservationsController : ControllerBase
     }*/
 
     [HttpPost]
+    [SwaggerOperation("Creating reservation for the service")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> AddReservation(int dentistIndustryId,CreateReservation command)
     {
         await _createReservationHandler.HandlerAsync(command with
@@ -50,6 +57,9 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPut("{reservationId:guid}")]
+    [SwaggerOperation("Change reservation date")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> ChangeReservationDate(Guid reservationId, ChangeReservationDate command)
     {
         await _changeReservationDateHandler.HandlerAsync(command with { ReservationId = reservationId});
@@ -57,6 +67,9 @@ public class ReservationsController : ControllerBase
     }
     
     [HttpDelete("{reservationId:guid}")]
+    [SwaggerOperation("Delete reservation for the dentist service")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> DeleteReservation(Guid reservationId)
     {
         await _deleteReservationHandler.HandlerAsync(new DeleteReservation(reservationId));
