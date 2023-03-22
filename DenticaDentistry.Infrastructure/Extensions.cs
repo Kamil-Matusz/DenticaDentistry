@@ -51,4 +51,13 @@ public static class Extensions
         app.UseAuthorization();
         return app;
     }
+    
+    public static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
+    {
+        var options = new T();
+        var section = configuration.GetRequiredSection(sectionName);
+        section.Bind(options);
+
+        return options;
+    }
 }

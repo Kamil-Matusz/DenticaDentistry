@@ -18,5 +18,9 @@
     <ProjectReference Include="..\DenticaDentistry.Application\DenticaDentistry.Application.csproj" />
     <ProjectReference Include="..\DenticaDentistry.Infrastructure\DenticaDentistry.Infrastructure.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="DenticaDentistry.IntegrationTests" />
+  </ItemGroup>
 
 </Project>
