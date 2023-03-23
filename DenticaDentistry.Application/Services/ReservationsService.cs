@@ -47,7 +47,7 @@ public class ReservationsService : IReservationsService
             return default;
         }
 
-        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate);
+        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate,command.UserId);
         
         dentistIndustryName.AddReservation(reservation);
         await _reservationRepository.UpdateAsync(dentistIndustryName);

@@ -10,11 +10,13 @@ public sealed class CreateReservationHandler : ICommandHandler<CreateReservation
 {
     private readonly IClock _clock;
     private readonly IReservationRepository _reservationRepository;
+    private readonly IUserRepository _userRepository;
 
-    public CreateReservationHandler(IClock clock, IReservationRepository reservationRepository)
+    public CreateReservationHandler(IClock clock, IReservationRepository reservationRepository, IUserRepository userRepository)
     {
         _clock = clock;
         _reservationRepository = reservationRepository;
+        _userRepository = userRepository;
     }
 
     public async Task HandlerAsync(CreateReservation command)
@@ -26,7 +28,14 @@ public sealed class CreateReservationHandler : ICommandHandler<CreateReservation
             throw new DentistIndustryServiceNotFoundException(dentistIndustryId);
         }
 
-        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate);
+        var userId = command.UserId;
+
+        var user = await _userRepository.GetByIdAsync(userId);
+        if (user is null)
+        {
+            throw new UserNotFoundException(userId);
+        }
+        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate,user.UserId);
         
         dentistIndustryName.AddReservation(reservation);
         await _reservationRepository.UpdateAsync(dentistIndustryName);

@@ -14,7 +14,7 @@ public class ReservationsControllerTests : BaseControllerTests,IDisposable
     public async Task post_new_reservation_should_return_no_content_status_code()
     {
         var clock = new Clock();
-        var command = new CreateReservation(Guid.NewGuid(), 3, "John Doe", clock.CurrentDate().AddHours(1));
+        var command = new CreateReservation(Guid.NewGuid(), 3, "John Doe", clock.CurrentDate().AddHours(1),Guid.NewGuid());
         var response = await Client.PostAsJsonAsync("reservations",command);
         
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);

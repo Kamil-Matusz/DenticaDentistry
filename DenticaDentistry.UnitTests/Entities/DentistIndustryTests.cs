@@ -26,7 +26,7 @@ public class DentistIndustryTests
         // var invalidReservationDate = new DateTime(2023,03,01);
         var invalidReservationDate = DateTime.Parse(dateString);
         var dentistIndustry = new DentistIndustry(1, "Leczenie Kanałowe", 100.00, "Leczenie martwego zęba");
-        var reservation = new Reservation(Guid.NewGuid(),dentistIndustry.DentistIndustryId, "John Doe", invalidReservationDate);
+        var reservation = new Reservation(Guid.NewGuid(),dentistIndustry.DentistIndustryId, "John Doe", invalidReservationDate,Guid.NewGuid());
         
         // Act
         var exception = Record.Exception(() => dentistIndustry.AddReservation(reservation));
@@ -41,7 +41,7 @@ public class DentistIndustryTests
     {
         // Arrange
         var reservationDate = new DateTime(2023, 03, 10);
-        var reservation = new Reservation(Guid.NewGuid(), _dentistIndustry.DentistIndustryId, "John Doe", reservationDate);
+        var reservation = new Reservation(Guid.NewGuid(), _dentistIndustry.DentistIndustryId, "John Doe", reservationDate,Guid.NewGuid());
 
         // Act
         _dentistIndustry.AddReservation(reservation);

@@ -65,7 +65,7 @@ public class ReservationsController : ControllerBase
         await _changeReservationDateHandler.HandlerAsync(command with { ReservationId = reservationId});
         return NoContent();
     }
-    
+
     [HttpDelete("{reservationId:guid}")]
     [SwaggerOperation("Delete reservation for the dentist service")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

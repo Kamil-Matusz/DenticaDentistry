@@ -55,23 +55,33 @@ public class DentistIndustriesController : ControllerBase
         return NoContent();
     }
 
-    [HttpPut("{derntistIndustryId:int}")]
+    [HttpPut("ChangeServiceName/{dentistIndustryId:int}")]
     [SwaggerOperation("Change dentist service name")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> ChangeServiceName(int dentistIndustryId,ChangeDentistServiceName command)
     {
         await _changeDentistServiceNameHandler.HandlerAsync(command with { DentistIndustryId = dentistIndustryId });
-        return NoContent();
+        return Ok();
+    }
+
+    [HttpPut("ChangeServicePrice/{dentistIndustryId:int}")]
+    [SwaggerOperation("Change dentist service price")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> ChangeServicePrice(int dentistIndustryId, ChangeDentistServicePrice command)
+    {
+        await _changeDentistServicePriceHandler.HandlerAsync(command with { DentistIndustryId = dentistIndustryId });
+        return Ok();
     }
     
     [HttpDelete("{dentistIndustryId:int}")]
     [SwaggerOperation("Delete dentist service")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> DeleteService(int dentistIndustryId)
     {
         await _deleteDentistServiceHandler.HandlerAsync(new DeleteDentistService(dentistIndustryId));
-        return NoContent();
+        return Ok();
     }
 }

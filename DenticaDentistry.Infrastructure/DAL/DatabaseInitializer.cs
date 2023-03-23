@@ -1,3 +1,4 @@
+using DenticaDentistry.Application.Security;
 using DenticaDentistry.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,9 +9,12 @@ namespace DenticaDentistry.Infrastructure.DAL;
 internal sealed class DatabaseInitializer : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
-    public DatabaseInitializer(IServiceProvider serviceProvider)
+    private readonly IPasswordManager _passwordManager;
+
+    public DatabaseInitializer(IServiceProvider serviceProvider,IPasswordManager passwordManager)
     {
         _serviceProvider = serviceProvider;
+        _passwordManager = passwordManager;
     }
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -30,6 +34,19 @@ internal sealed class DatabaseInitializer : IHostedService
                     new DentistIndustry(5, "Wizyta Kontrolna", 50.00, "Kontrolne badanie zębów"),
                 };
                 dbContext.DentistIndustries.AddRange(dentistIndustries);
+                dbContext.SaveChanges();
+            }
+
+            var users = dbContext.Users.ToList();
+            const string password = "password";
+            if (!users.Any())
+            {
+                users = new List<User>()
+                {
+                    new User(Guid.NewGuid(), "admin@test.com", "Admin", _passwordManager.Secure(password), "Admin Account",
+                        "admin")
+                };
+                dbContext.Users.AddRange(users);
                 dbContext.SaveChanges();
             }
         }
