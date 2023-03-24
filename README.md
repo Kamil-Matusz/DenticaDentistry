@@ -9,9 +9,11 @@ Dental salon with the possibility of booking services and operations on services
 - PostgreSQL
 - Docker
 
-# Swagger
+# Swagger Documentation
+![](/git_images/swagger_documentation.png)
 
 # Database Diagram
+![](/git_images/database_diagram.png)
 
 ## Defaul Admin account
 email: admin@test.com <br/>
