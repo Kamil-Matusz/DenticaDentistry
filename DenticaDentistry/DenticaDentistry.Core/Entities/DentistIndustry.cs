@@ -10,14 +10,16 @@ public class DentistIndustry
     public string Name { get; private set; }
     public double Price { get; private set; }
     public string Description { get; private set; }
+    public int ServiceTypeId { get; private set; }
     public IEnumerable<Reservation> Reservations => _reservations;
     
-    public DentistIndustry(int dentistIndustryId, string name, double price, string description)
+    public DentistIndustry(int dentistIndustryId, string name, double price, string description, int serviceTypeId)
     {
         DentistIndustryId = dentistIndustryId;
         ChangeName(name);
         ChangePrice(price);
         Description = description;
+        ServiceTypeId = serviceTypeId;
     }
 
     public void AddReservation(Reservation reservation)

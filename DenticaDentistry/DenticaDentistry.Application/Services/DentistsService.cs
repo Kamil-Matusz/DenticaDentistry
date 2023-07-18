@@ -35,7 +35,7 @@ public class DentistsService : IDentistsService
 
     public async Task<int?> CreateDentistServiceAsync(CreateDentistService command)
     {
-        var dentistIndustryService = new DentistIndustry(command.DentistIndustryId, command.Name, command.Price, command.Description);
+        var dentistIndustryService = new DentistIndustry(command.DentistIndustryId, command.Name, command.Price, command.Description, command.ServiceTypeId);
         await _dentistIndustryRepository.AddServiceAsync(dentistIndustryService);
         return dentistIndustryService.DentistIndustryId;
     }
