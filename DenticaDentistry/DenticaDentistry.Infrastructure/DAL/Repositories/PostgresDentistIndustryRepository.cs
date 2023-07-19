@@ -14,7 +14,9 @@ internal sealed class PostgresDentistIndustryRepository  : IDentistIndustryRepos
     }
     public async Task<IEnumerable<DentistIndustry>> GetAllServiceAsync()
     {
-        var result = await _dbContext.DentistIndustries.ToListAsync();
+        var result = await _dbContext.DentistIndustries
+            .AsNoTracking()
+            .ToListAsync();
 
         return result.AsEnumerable();
     }

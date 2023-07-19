@@ -26,6 +26,7 @@ internal static class Extensions
         services.AddScoped<IReservationRepository, PostgresReservationRepository>();
         services.AddScoped<IDentistIndustryRepository, PostgresDentistIndustryRepository>();
         services.AddScoped<IUserRepository, PostgresUserRepository>();
+        services.AddScoped<IServiceTypeRepository, PostgresServiceTypeRepository>();
         services.AddScoped<IUnitOfWork, PostgresUnitOfWork>();
         services.TryDecorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
         services.AddHostedService<DatabaseInitializer>();

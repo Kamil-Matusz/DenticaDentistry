@@ -47,12 +47,12 @@ public class DentistIndustriesController : ControllerBase
 
     [HttpPost]
     [SwaggerOperation("Creating new dentist service")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> AddDentistService(CreateDentistService command)
     {
         await _createDentistServiceHandler.HandlerAsync(command);
-        return NoContent();
+        return Ok();
     }
 
     [HttpPut("ChangeServiceName/{dentistIndustryId:int}")]

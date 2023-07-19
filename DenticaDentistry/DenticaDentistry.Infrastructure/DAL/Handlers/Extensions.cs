@@ -16,6 +16,7 @@ internal static class Extensions
     public static DentistIndustryDto AsDentistIndustryDto(this DentistIndustry entity) => new()
     {
         DentistIndustryId = entity.DentistIndustryId,
+        ServiceTypeId = entity.ServiceTypeId,
         Name = entity.Name,
         Price = entity.Price,
         Description = entity.Description
@@ -26,5 +27,10 @@ internal static class Extensions
         UserId = entity.UserId,
         Username = entity.Username,
         Fullname = entity.Fullname
+    };
+
+    public static ServiceTypeDto AsServiceTypesDto(this ServiceType entity) => new()
+    {
+        Name = entity.ServiceTypeName
     };
 }

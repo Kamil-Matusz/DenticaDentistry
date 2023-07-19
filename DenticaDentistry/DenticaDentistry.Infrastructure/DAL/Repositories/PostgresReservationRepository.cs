@@ -32,14 +32,13 @@ internal sealed class PostgresReservationRepository : IReservationRepository
     public async Task AddAsync(DentistIndustry dentistIndustry)
     {
         await _dbContext.AddAsync(dentistIndustry);
-        
+        await _dbContext.SaveChangesAsync();
     }
 
     public Task UpdateAsync(DentistIndustry dentistIndustry)
     {
         _dbContext.Update(dentistIndustry);
         return Task.CompletedTask;
-
     }
 
     public async Task DeleteAsync(DentistIndustry dentistIndustry)
