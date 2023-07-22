@@ -15,7 +15,7 @@ public class CreateDentistServiceHandler : ICommandHandler<CreateDentistService>
 
     public async Task HandlerAsync(CreateDentistService command)
     {
-        var dentistIndustryService = new DentistIndustry(command.DentistIndustryId, command.Name, command.Price, command.Description);
+        var dentistIndustryService = new DentistIndustry(command.DentistIndustryId, command.Name, command.Price, command.Description, command.ServiceTypeId);
         await _dentistIndustryRepository.AddServiceAsync(dentistIndustryService);
     }
 }

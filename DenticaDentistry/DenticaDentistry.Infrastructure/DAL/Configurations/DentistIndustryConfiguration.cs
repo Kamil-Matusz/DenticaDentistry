@@ -9,5 +9,7 @@ internal sealed class DentistIndustryConfiguration : IEntityTypeConfiguration<De
     public void Configure(EntityTypeBuilder<DentistIndustry> builder)
     {
         builder.HasKey(x => x.DentistIndustryId);
+        builder.HasOne<ServiceType>().WithMany().HasForeignKey(x => x.ServiceTypeId);
+        builder.Property(p => p.ServiceTypeId).IsRequired();
     }
 }
