@@ -17,14 +17,16 @@ public class DentistIndustriesController : ControllerBase
     private readonly ICommandHandler<ChangeDentistServicePrice> _changeDentistServicePriceHandler;
 
     private readonly IQueryHandler<GetAllDentistServices, IEnumerable<DentistIndustryDto>> _getAllDentistServicesHandler;
+    private readonly IQueryHandler<GetDentistService,DentistIndustryDto> _getDentistServiceHandler;
 
-    public DentistIndustriesController(ICommandHandler<CreateDentistService> createDentistServiceHandler, ICommandHandler<DeleteDentistService> deleteDentistServiceHandler, ICommandHandler<ChangeDentistServiceName> changeDentistServiceNameHandler, ICommandHandler<ChangeDentistServicePrice> changeDentistServicePriceHandler, IQueryHandler<GetAllDentistServices, IEnumerable<DentistIndustryDto>> getAllDentistServicesHandler)
+    public DentistIndustriesController(ICommandHandler<CreateDentistService> createDentistServiceHandler, ICommandHandler<DeleteDentistService> deleteDentistServiceHandler, ICommandHandler<ChangeDentistServiceName> changeDentistServiceNameHandler, ICommandHandler<ChangeDentistServicePrice> changeDentistServicePriceHandler, IQueryHandler<GetAllDentistServices, IEnumerable<DentistIndustryDto>> getAllDentistServicesHandler, IQueryHandler<GetDentistService, DentistIndustryDto> getDentistServiceHandler)
     {
         _createDentistServiceHandler = createDentistServiceHandler;
         _deleteDentistServiceHandler = deleteDentistServiceHandler;
         _changeDentistServiceNameHandler = changeDentistServiceNameHandler;
         _changeDentistServicePriceHandler = changeDentistServicePriceHandler;
         _getAllDentistServicesHandler = getAllDentistServicesHandler;
+        _getDentistServiceHandler = getDentistServiceHandler;
     }
 
     [HttpGet]
@@ -84,4 +86,11 @@ public class DentistIndustriesController : ControllerBase
         await _deleteDentistServiceHandler.HandlerAsync(new DeleteDentistService(dentistIndustryId));
         return Ok();
     }
+
+    [HttpGet("{dentistIndustryId:int}")]
+    [SwaggerOperation("Displaying Dentist Service By Id")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<DentistIndustryDto>> GetDentistServiceById(int dentistIndustryId, GetDentistService query) =>
+        Ok(await _getDentistServiceHandler.HandlerAsync(query));
 }

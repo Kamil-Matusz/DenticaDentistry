@@ -10,4 +10,9 @@ public class ServiceType
         ServiceTypeId = serviceTypeId;
         ServiceTypeName = serviceTypeName;
     }
+
+    public void ChangeServiceName(string name)
+    {
+        ServiceTypeName = name;
+    }
 }
