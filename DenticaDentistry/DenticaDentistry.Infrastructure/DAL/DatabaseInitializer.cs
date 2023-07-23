@@ -57,7 +57,8 @@ internal sealed class DatabaseInitializer : IHostedService
                 users = new List<User>()
                 {
                     new User(Guid.NewGuid(), "admin@test.com", "Admin", _passwordManager.Secure(password), "Admin Account",
-                        "admin")
+                        "admin"),
+                    new User(Guid.NewGuid(),"johndoe@test.com","Johny",_passwordManager.Secure(password),"John Doe","user")
                 };
                 dbContext.Users.AddRange(users);
                 dbContext.SaveChanges();

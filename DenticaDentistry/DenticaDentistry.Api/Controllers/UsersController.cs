@@ -19,14 +19,16 @@ public class UsersController : ControllerBase
     private readonly ITokenStorage _tokenStorage;
     private readonly IQueryHandler<GetAllUsers, IEnumerable<UserDto>> _getAllUsersHandler;
     private readonly IQueryHandler<GetUser, UserDto> _getUserHandler;
-    
-    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage)
+    private readonly IQueryHandler<GetUserByName, UserDto> _getUserByNameHandler;
+
+    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler)
     {
         _signUpHandler = signUpHandler;
         _getAllUsersHandler = getAllUsersHandler;
         _getUserHandler = getUserHandler;
         _signInHandler = signInHandler;
         _tokenStorage = tokenStorage;
+        _getUserByNameHandler = getUserByNameHandler;
     }
 
     [Authorize(Roles = "admin")]
@@ -90,5 +92,21 @@ public class UsersController : ControllerBase
         await _signInHandler.HandlerAsync(command);
         var jwt = _tokenStorage.GetToken();
         return Ok(jwt);
+    }
+    
+    [Authorize(Roles = "admin")]
+    [HttpGet("{username}")]
+    [SwaggerOperation("Displaying information about user based on username")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<UserDto>> GetUserByName(string username)
+    {
+        var user = await _getUserByNameHandler.HandlerAsync(new GetUserByName { UserName = username });
+        if (user is null)
+        {
+            return NotFound();
+        }
+        return user;
     }
 }

@@ -44,7 +44,7 @@ public class ReservationsController : ControllerBase
 
     [HttpPost]
     [SwaggerOperation("Creating reservation for the service")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> AddReservation(int dentistIndustryId,CreateReservation command)
     {
@@ -53,27 +53,29 @@ public class ReservationsController : ControllerBase
             ReservationId = Guid.NewGuid(),
             DentistIndustryId = dentistIndustryId,
         });
-        return NoContent();
+        return Ok();
     }
 
     [HttpPut("{reservationId:guid}")]
     [SwaggerOperation("Change reservation date")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> ChangeReservationDate(Guid reservationId, ChangeReservationDate command)
     {
         await _changeReservationDateHandler.HandlerAsync(command with { ReservationId = reservationId});
-        return NoContent();
+        return Ok();
     }
 
     [HttpDelete("{reservationId:guid}")]
     [SwaggerOperation("Delete reservation for the dentist service")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> DeleteReservation(Guid reservationId)
     {
         await _deleteReservationHandler.HandlerAsync(new DeleteReservation(reservationId));
-        return NoContent();
+        return Ok();
     }
 
 }
