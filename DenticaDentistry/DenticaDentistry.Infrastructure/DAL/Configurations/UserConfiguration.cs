@@ -30,6 +30,10 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasConversion(x => x.Value, x => new Fullname(x))
             .IsRequired()
             .HasMaxLength(100);
+        builder.Property(x => x.PhoneNumber)
+            .HasConversion(x => x.Value, x=> new PhoneNumber(x))
+            .IsRequired()
+            .HasMaxLength(12);
         builder.Property(x => x.Role)
             .HasConversion(x => x.Value, x => new Role(x))
             .IsRequired()
