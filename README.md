@@ -20,6 +20,9 @@ The project uses a Postgres database using Docker. Docker settings are in the do
 For the database to work properly, create a migration and apply the appropriate data in the file <b>appsettings.json</b> on line 16 <b>"connectionString"</b> change the database path to your database path.
 
 ## Defaul Admin account
-email: admin@test.com <br/>
-password: password
+| Login                 | Password   |
+|-----------------------|------------|
+| admin@test.com        | password   |
+| johndoe@test.com      | passowrd   |
+
 
