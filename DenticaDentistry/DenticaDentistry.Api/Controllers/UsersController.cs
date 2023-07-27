@@ -3,6 +3,7 @@ using DenticaDentistry.Application.Commands;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Application.Security;
+using DenticaDentistry.Application.Services;
 using DenticaDentistry.Core.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,9 @@ public class UsersController : ControllerBase
     private readonly IQueryHandler<GetAllUsers, IEnumerable<UserDto>> _getAllUsersHandler;
     private readonly IQueryHandler<GetUser, UserDto> _getUserHandler;
     private readonly IQueryHandler<GetUserByName, UserDto> _getUserByNameHandler;
+    private readonly IEmailService _emailService;
 
-    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler)
+    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, IEmailService emailService)
     {
         _signUpHandler = signUpHandler;
         _getAllUsersHandler = getAllUsersHandler;
@@ -29,6 +31,7 @@ public class UsersController : ControllerBase
         _signInHandler = signInHandler;
         _tokenStorage = tokenStorage;
         _getUserByNameHandler = getUserByNameHandler;
+        _emailService = emailService;
     }
 
     [Authorize(Roles = "admin")]
@@ -79,6 +82,8 @@ public class UsersController : ControllerBase
     {
         command = command with { UserId = Guid.NewGuid() };
         await _signUpHandler.HandlerAsync(command);
+        
+        await _emailService.SendEmailAsync(command.Email, "Welcome to our Dentica Dentistry!", "Thank you for signing up!");
 
         return NoContent();
     }

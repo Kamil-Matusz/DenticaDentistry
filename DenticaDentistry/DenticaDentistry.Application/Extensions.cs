@@ -27,6 +27,7 @@ public static class Extensions
             .WithScopedLifetime());
         
         services.AddSingleton<IClock, Clock>();
+        services.AddScoped<IEmailService,EmailService>();
         
         return services;
     }
