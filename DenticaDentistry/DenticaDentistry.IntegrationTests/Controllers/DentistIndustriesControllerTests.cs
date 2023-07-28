@@ -12,7 +12,7 @@ public class DentistIndustriesControllerTests : BaseControllerTests,IDisposable
     [Fact]
     public async Task post_new_dentist_industry_should_return_no_content_status_code()
     {
-        var command = new CreateDentistService(10, "Wybielanie", 120.00, "Wybielanie zębów");
+        var command = new CreateDentistService(10, "Wybielanie", 120.00, "Wybielanie zębów",1);
         var response = await Client.PostAsJsonAsync("services",command);
         
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);

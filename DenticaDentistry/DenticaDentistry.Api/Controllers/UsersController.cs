@@ -83,7 +83,7 @@ public class UsersController : ControllerBase
         command = command with { UserId = Guid.NewGuid() };
         await _signUpHandler.HandlerAsync(command);
         
-        await _emailService.SendEmailAsync(command.Email, "Welcome to our Dentica Dentistry!", "Thank you for signing up!");
+        await _emailService.SendEmailAsync(command.Email, "Created Account Info", "You have successfully created an account in the application");
 
         return NoContent();
     }

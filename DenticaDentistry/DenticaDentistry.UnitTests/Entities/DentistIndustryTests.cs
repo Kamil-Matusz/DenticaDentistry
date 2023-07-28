@@ -13,7 +13,7 @@ public class DentistIndustryTests
     public DentistIndustryTests()
     {
         _now = new DateTime(2023, 03, 04);
-        _dentistIndustry = new DentistIndustry(1, "Leczenie Kanałowe", 100.00, "Leczenie martwego zęba");
+        _dentistIndustry = new DentistIndustry(1, "Leczenie Kanałowe", 100.00, "Leczenie martwego zęba",1);
     }
     
     [Theory]
@@ -25,7 +25,7 @@ public class DentistIndustryTests
         var now = new DateTime(2023, 03, 04);
         // var invalidReservationDate = new DateTime(2023,03,01);
         var invalidReservationDate = DateTime.Parse(dateString);
-        var dentistIndustry = new DentistIndustry(1, "Leczenie Kanałowe", 100.00, "Leczenie martwego zęba");
+        var dentistIndustry = new DentistIndustry(1, "Leczenie Kanałowe", 100.00, "Leczenie martwego zęba",1);
         var reservation = new Reservation(Guid.NewGuid(),dentistIndustry.DentistIndustryId, "John Doe", invalidReservationDate,Guid.NewGuid());
         
         // Act

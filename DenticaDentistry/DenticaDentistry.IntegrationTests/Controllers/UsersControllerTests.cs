@@ -20,7 +20,7 @@ public class UsersControllerTests : BaseControllerTests,IDisposable
     public async Task post_users_should_return_no_content_status_code()
     {
         
-        var command = new SignUp(Guid.Empty, "test-user@onet.pl", "test-user", "secret","Test Doe", "user");
+        var command = new SignUp(Guid.Empty, "test-user@onet.pl", "test-user", "secret","Test Doe","+48123452785" ,"user");
         var response = await Client.PostAsJsonAsync("users/signUp", command);
 
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
@@ -32,7 +32,7 @@ public class UsersControllerTests : BaseControllerTests,IDisposable
         var passwordManager = new PasswordManager(new PasswordHasher<User>());
         const string password = "password";
 
-        var user = new User(Guid.NewGuid(),"test1@test.com","testUser",passwordManager.Secure(password),"Test User","user");
+        var user = new User(Guid.NewGuid(),"test1@test.com","testUser",passwordManager.Secure(password),"Test User","+48237654891","user");
         
         await _testDatabase.DbContext.Users.AddAsync(user);
         await _testDatabase.DbContext.SaveChangesAsync();
@@ -52,7 +52,7 @@ public class UsersControllerTests : BaseControllerTests,IDisposable
         var passwordManager = new PasswordManager(new PasswordHasher<User>());
         const string password = "password";
 
-        var user = new User(Guid.NewGuid(),"test1@test.com","testUser",passwordManager.Secure(password),"Test User","user");
+        var user = new User(Guid.NewGuid(),"test1@test.com","testUser",passwordManager.Secure(password),"Test User","+48234561672","user");
 
         await _testDatabase.DbContext.Database.MigrateAsync();
         await _testDatabase.DbContext.Users.AddAsync(user);

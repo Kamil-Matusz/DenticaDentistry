@@ -2,6 +2,7 @@
 using DenticaDentistry.Application.Commands;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
+using DenticaDentistry.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -15,13 +16,15 @@ public class ReservationsController : ControllerBase
     private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
     private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
     private readonly IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> _getAllReservationHandler;
+    private readonly IEmailService _emailService;
 
-    public ReservationsController(ICommandHandler<CreateReservation> createReservationHandler, ICommandHandler<DeleteReservation> deleteReservationHandler, ICommandHandler<ChangeReservationDate> changeReservationDateHandler, IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> getAllReservationHandler)
+    public ReservationsController(ICommandHandler<CreateReservation> createReservationHandler, ICommandHandler<DeleteReservation> deleteReservationHandler, ICommandHandler<ChangeReservationDate> changeReservationDateHandler, IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> getAllReservationHandler, IEmailService emailService)
     {
         _createReservationHandler = createReservationHandler;
         _deleteReservationHandler = deleteReservationHandler;
         _changeReservationDateHandler = changeReservationDateHandler;
         _getAllReservationHandler = getAllReservationHandler;
+        _emailService = emailService;
     }
     
     [HttpGet]
