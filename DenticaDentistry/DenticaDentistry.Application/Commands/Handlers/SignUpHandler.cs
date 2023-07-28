@@ -24,6 +24,7 @@ internal sealed class SignUpHandler : ICommandHandler<SignUp>
         var email = new Email(command.Email);
         var username = new Username(command.Username);
         var password = new Password(command.Password);
+        var phoneNumber = new PhoneNumber(command.PhoneNumber);
         var fullName = new Fullname(command.Fullname);
         var role = string.IsNullOrWhiteSpace(command.Role) ? Role.User() : new Role(command.Role);
         
@@ -38,7 +39,7 @@ internal sealed class SignUpHandler : ICommandHandler<SignUp>
         }
         
         var securedPassword = _passwordManager.Secure(password);
-        var user = new User(userId, email, username, securedPassword, fullName, role);
+        var user = new User(userId, email, username, securedPassword, fullName, role, phoneNumber);
         
         await _userRepository.AddAsync(user);
     }

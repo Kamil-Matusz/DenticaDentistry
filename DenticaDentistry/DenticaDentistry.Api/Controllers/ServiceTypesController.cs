@@ -43,6 +43,7 @@ public class ServiceTypesController : ControllerBase
     [SwaggerOperation("Change dentist service name")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> ChangeServiceTypeName(int serviceTypeId, ChangeServiceTypeName command)
     {
         await _changeServiceTypeNameHandler.HandlerAsync(command with {ServiceTypeId = serviceTypeId});

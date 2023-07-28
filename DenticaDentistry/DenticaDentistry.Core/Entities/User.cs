@@ -9,19 +9,21 @@ public class User
     public Username Username { get; private set; }
     public Password Password { get; private set; }
     public Fullname Fullname { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; }
     public Role Role { get; private set; }
 
     protected User()
     {
         
     }
-    public User(UserId userId, Email email, Username username, Password password, Fullname fullName, Role role)
+    public User(UserId userId, Email email, Username username, Password password, Fullname fullName, Role role, PhoneNumber phoneNumber)
     {
         UserId = userId;
         Email = email;
         Username = username;
         Password = password;
         Fullname = fullName;
+        PhoneNumber = phoneNumber;
         Role = role;
     }
 }
