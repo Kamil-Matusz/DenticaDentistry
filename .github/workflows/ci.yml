@@ -15,33 +15,22 @@ jobs:
     services:
       postgres:
         image: postgres
-        shm_size: '4gb'
-        container_name: postgres_denticadentistry
-        environment:
-          - POSTGRES_HOST_AUTH_METHOD=trust
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mydatabase
         ports:
           - 5432:5432
-        volumes:
-          - postgres:/var/lib/postgresql/data
-
-      mailcatcher:
-        image: schickling/mailcatcher
-        container_name: mailcatcher_denticadentistry
-        ports:
-          - 1080:1080 # Expose the MailCatcher web interface
-          - 1025:1025 # Expose the SMTP port for email catching
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v2
 
-    - name: Setup Docker Compose
-      run: docker-compose up -d
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '6.0.x' # Ustaw odpowiednią wersję .NET 6.0, np. 6.0.100
+        dotnet-version: '6.0.x'
 
     - name: Restore dependencies
       run: dotnet restore
@@ -52,11 +41,5 @@ jobs:
     - name: Publish the API project
       run: dotnet publish --configuration Release --no-build --output ./publish ./DenticaDentistry/DenticaDentistry.Api
 
-    - name: Set up environment variables
-      run: echo "DOTNET_ROOT=${DOTNET_ROOT}" >> $GITHUB_ENV
-
     - name: Run the API
       run: dotnet ./publish/DenticaDentistry.Api.dll
-
-    - name: Teardown Docker Compose
-      run: docker-compose down
