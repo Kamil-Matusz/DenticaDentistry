@@ -37,9 +37,3 @@ jobs:
 
     - name: Build the project
       run: dotnet build --configuration Release ./DenticaDentistry/DenticaDentistry.sln
-
-    - name: Publish the API project
-      run: dotnet publish --configuration Release --no-build --output ./publish ./DenticaDentistry/DenticaDentistry.Api
-
-    - name: Run the API
-      run: dotnet ./publish/DenticaDentistry.Api.dll
