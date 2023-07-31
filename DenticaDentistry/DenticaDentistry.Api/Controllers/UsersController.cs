@@ -21,9 +21,9 @@ public class UsersController : ControllerBase
     private readonly IQueryHandler<GetAllUsers, IEnumerable<UserDto>> _getAllUsersHandler;
     private readonly IQueryHandler<GetUser, UserDto> _getUserHandler;
     private readonly IQueryHandler<GetUserByName, UserDto> _getUserByNameHandler;
-    private readonly IEmailService _emailService;
+    private readonly ICommandHandler<SendEmail> _sendEmailHandler;
 
-    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, IEmailService emailService)
+    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, ICommandHandler<SendEmail> sendEmailHandler)
     {
         _signUpHandler = signUpHandler;
         _getAllUsersHandler = getAllUsersHandler;
@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
         _signInHandler = signInHandler;
         _tokenStorage = tokenStorage;
         _getUserByNameHandler = getUserByNameHandler;
-        _emailService = emailService;
+        _sendEmailHandler = sendEmailHandler;
     }
 
     [Authorize(Roles = "admin")]
@@ -83,7 +83,12 @@ public class UsersController : ControllerBase
         command = command with { UserId = Guid.NewGuid() };
         await _signUpHandler.HandlerAsync(command);
         
-        await _emailService.SendEmailAsync(command.Email, "Created Account Info", "You have successfully created an account in the application");
+        var sendEmailCommand = new SendEmail(
+            Recipient: command.Email,
+            Subject: "Created Account Info",
+            Body: "You have successfully created an account in the application"
+        );
+        await _sendEmailHandler.HandlerAsync(sendEmailCommand);
 
         return NoContent();
     }
