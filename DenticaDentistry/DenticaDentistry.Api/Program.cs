@@ -1,6 +1,7 @@
 using DenticaDentistry.Application;
 using DenticaDentistry.Core;
 using DenticaDentistry.Infrastructure;
+using DenticaDentistry.Infrastructure.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services
     .AddCore()
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
+
+builder.UseSerilog();
 
 // Add services to the container.
 

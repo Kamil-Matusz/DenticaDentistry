@@ -52,7 +52,7 @@ public class UsersControllerTests : BaseControllerTests,IDisposable
         var passwordManager = new PasswordManager(new PasswordHasher<User>());
         const string password = "password";
 
-        var user = new User(Guid.NewGuid(),"test1@test.com","testUser",passwordManager.Secure(password),"Test User","+48234561672","user");
+        var user = new User(Guid.NewGuid(),"test1@test.com","testUser",passwordManager.Secure(password),"Test User","user","+48234561672");
 
         await _testDatabase.DbContext.Database.MigrateAsync();
         await _testDatabase.DbContext.Users.AddAsync(user);
@@ -60,6 +60,26 @@ public class UsersControllerTests : BaseControllerTests,IDisposable
         
         Authorize(user.UserId, user.Role);
         var userDto = await Client.GetFromJsonAsync<UserDto>("users/me");
+        
+        userDto.ShouldNotBeNull();
+        userDto.UserId.ShouldBe(user.UserId.Value);
+    }
+    
+    [Fact]
+    public async Task get_user_by_id_should_return_ok_status_code_and_user()
+    {
+        var passwordManager = new PasswordManager(new PasswordHasher<User>());
+        const string password = "password";
+
+        var user = new User(Guid.NewGuid(),"test2@test.com","testUser",passwordManager.Secure(password),"Test User","user","+48234561672");
+
+        await _testDatabase.DbContext.Database.MigrateAsync();
+        await _testDatabase.DbContext.Users.AddAsync(user);
+        await _testDatabase.DbContext.SaveChangesAsync();
+        
+        Authorize(user.UserId, user.Role);
+        var userId = user.UserId.Value;
+        var userDto = await Client.GetFromJsonAsync<UserDto>($"users/{userId}");
         
         userDto.ShouldNotBeNull();
         userDto.UserId.ShouldBe(user.UserId.Value);
