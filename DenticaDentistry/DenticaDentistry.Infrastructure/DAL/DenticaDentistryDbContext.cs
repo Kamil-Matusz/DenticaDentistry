@@ -10,6 +10,7 @@ internal class DenticaDentistryDbContext : DbContext
     public DbSet<DentistIndustry> DentistIndustries { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<ServiceType> ServiceTypes { get; set; }
+    public DbSet<Dentist> Dentists { get; set; }
 
     public DenticaDentistryDbContext(DbContextOptions<DenticaDentistryDbContext> options) : base(options) 
     {
