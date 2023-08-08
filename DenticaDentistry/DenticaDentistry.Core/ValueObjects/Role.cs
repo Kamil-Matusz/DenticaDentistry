@@ -5,7 +5,7 @@ namespace DenticaDentistry.Core.ValueObjects;
 public sealed record Role
 {
 
-    public static IEnumerable<string> AvailableRoles { get; } = new[] { "admin", "user" };
+    public static IEnumerable<string> AvailableRoles { get; } = new[] { "admin", "user","dentist"};
 
     public string Value { get; }
 
@@ -27,8 +27,7 @@ public sealed record Role
     public static Role Admin() => new("admin");
 
     public static Role User() => new("user");
-    public static Role Manager() => new("manager");
-    public static Role Boss() => new("boss");
+    public static Role Dentist() => new("dentist");
 
     public static implicit operator Role(string value) => new Role(value);
 

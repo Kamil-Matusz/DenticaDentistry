@@ -4,6 +4,7 @@ using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Application.Security;
 using DenticaDentistry.Application.Services;
+using DenticaDentistry.Core.Entities;
 using DenticaDentistry.Core.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +23,9 @@ public class UsersController : ControllerBase
     private readonly IQueryHandler<GetUser, UserDto> _getUserHandler;
     private readonly IQueryHandler<GetUserByName, UserDto> _getUserByNameHandler;
     private readonly ICommandHandler<SendEmail> _sendEmailHandler;
+    private readonly ICommandHandler<CreateDentist> _createDentistHandler;
 
-    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, ICommandHandler<SendEmail> sendEmailHandler)
+    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, ICommandHandler<SendEmail> sendEmailHandler, ICommandHandler<CreateDentist> createDentistHandler)
     {
         _signUpHandler = signUpHandler;
         _getAllUsersHandler = getAllUsersHandler;
@@ -32,6 +34,7 @@ public class UsersController : ControllerBase
         _tokenStorage = tokenStorage;
         _getUserByNameHandler = getUserByNameHandler;
         _sendEmailHandler = sendEmailHandler;
+        _createDentistHandler = createDentistHandler;
     }
 
     [Authorize(Roles = "admin")]
@@ -89,6 +92,15 @@ public class UsersController : ControllerBase
             Body: "You have successfully created an account in the application"
         );
         await _sendEmailHandler.HandlerAsync(sendEmailCommand);
+
+        if (command.Role == "admin")
+        {
+            var dentist = new CreateDentist(
+                DentistId: Guid.NewGuid(),
+                UserId: command.UserId);
+
+            await _createDentistHandler.HandlerAsync(dentist);
+        }
 
         return NoContent();
     }
