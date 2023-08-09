@@ -93,7 +93,7 @@ public class UsersController : ControllerBase
         );
         await _sendEmailHandler.HandlerAsync(sendEmailCommand);
 
-        if (command.Role == "admin")
+        if (command.Role == "dentist")
         {
             var dentist = new CreateDentist(
                 DentistId: Guid.NewGuid(),

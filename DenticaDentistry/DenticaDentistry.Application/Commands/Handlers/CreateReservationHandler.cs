@@ -35,7 +35,7 @@ public sealed class CreateReservationHandler : ICommandHandler<CreateReservation
         {
             throw new UserNotFoundException(userId);
         }
-        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate,user.UserId);
+        var reservation = new Reservation(command.ReservationId, command.DentistIndustryId,command.BookerName, command.ReservationDate,user.UserId,command.DentistId);
         
         dentistIndustryName.AddReservation(reservation);
         await _reservationRepository.UpdateAsync(dentistIndustryName);

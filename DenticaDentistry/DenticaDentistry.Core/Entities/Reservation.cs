@@ -9,14 +9,16 @@ public class Reservation
     public string BookerName { get; private set; }
     public DateTime ReservationDate { get; private set; }
     public UserId UserId { get; private set; }
+    public DentistId DentistId { get; private set; }
 
-    public Reservation(Guid reservationId,int dentistIndustryId ,string bookerName, DateTime reservationDate,UserId userId)
+    public Reservation(Guid reservationId,int dentistIndustryId ,string bookerName, DateTime reservationDate,UserId userId, DentistId dentistId)
     {
         ReservationId = reservationId;
         DentistIndustryId = dentistIndustryId;
         BookerName = bookerName;
         ChangeReservationDate(reservationDate);
         UserId = userId;
+        DentistId = dentistId;
     }
 
     public void ChangeReservationDate(DateTime date)
