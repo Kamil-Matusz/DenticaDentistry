@@ -3,6 +3,7 @@ using DenticaDentistry.Application.Commands;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -33,7 +34,8 @@ public class DentistIndustriesController : ControllerBase
     [SwaggerOperation("Displaying all dentist services")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IEnumerable<DentistIndustryDto>>> GetAllServices([FromQuery] GetAllDentistServices query) => Ok(await _getAllDentistServicesHandler.HandlerAsync(query));
+    public async Task<ActionResult<IEnumerable<DentistIndustryDto>>> GetAllServices([FromQuery] GetAllDentistServices query) 
+        => Ok(await _getAllDentistServicesHandler.HandlerAsync(query));
     
     /*[HttpGet("{id:int}")]
     public async Task<ActionResult<DentistIndustryDto>> GetService(int id)
@@ -47,6 +49,7 @@ public class DentistIndustriesController : ControllerBase
         return Ok(service);
     }*/
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     [SwaggerOperation("Creating new dentist service")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -57,6 +60,7 @@ public class DentistIndustriesController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPut("ChangeServiceName/{dentistIndustryId:int}")]
     [SwaggerOperation("Change dentist service name")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -67,6 +71,7 @@ public class DentistIndustriesController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPut("ChangeServicePrice/{dentistIndustryId:int}")]
     [SwaggerOperation("Change dentist service price")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -77,6 +82,7 @@ public class DentistIndustriesController : ControllerBase
         return Ok();
     }
     
+    [Authorize(Roles = "admin")]
     [HttpDelete("{dentistIndustryId:int}")]
     [SwaggerOperation("Delete dentist service")]
     [ProducesResponseType(StatusCodes.Status200OK)]

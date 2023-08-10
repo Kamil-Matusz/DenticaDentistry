@@ -20,4 +20,9 @@ public class Dentist
         DentistId = dentistId;
         UserId = userId;
     }
+    
+    public void AddLicenseNumber(string licenseNumber)
+    {
+        LicenseNumber = licenseNumber;
+    }
 }

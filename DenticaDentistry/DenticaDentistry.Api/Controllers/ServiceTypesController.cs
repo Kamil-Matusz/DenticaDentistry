@@ -25,7 +25,8 @@ public class ServiceTypesController : ControllerBase
     [SwaggerOperation("Displaying all service types")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IEnumerable<ServiceTypeDto>>> GetAllServiceTypes([FromQuery] GetAllServiceTypes query) => Ok(await _getAllServiceTypeHandler.HandlerAsync(query));
+    public async Task<ActionResult<IEnumerable<ServiceTypeDto>>> GetAllServiceTypes([FromQuery] GetAllServiceTypes query) 
+        => Ok(await _getAllServiceTypeHandler.HandlerAsync(query));
     
     [Authorize(Roles = "admin")]
     [HttpPost]
