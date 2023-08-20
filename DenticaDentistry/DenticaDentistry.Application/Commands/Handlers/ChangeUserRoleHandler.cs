@@ -1,4 +1,5 @@
 ﻿using DenticaDentistry.Application.Abstractions;
+using DenticaDentistry.Application.Exceptions;
 using DenticaDentistry.Core.Repositories;
 using DenticaDentistry.Core.ValueObjects;
 
@@ -17,6 +18,13 @@ public sealed class ChangeUserRoleHandler : ICommandHandler<ChangeUserRole>
     {
         var userId = command.UserId;
         var role = string.IsNullOrWhiteSpace(command.Role) ? Role.User() : new Role(command.Role);
-        await _userRepository.ChangeUserRole(userId, role);
+        if (role == "admin" || role == "user" || role == "dentist")
+        {
+            await _userRepository.ChangeUserRole(userId, role);    
+        }
+        else
+        {
+            throw new UserRoleNotExistException();
+        }
     }
 }
