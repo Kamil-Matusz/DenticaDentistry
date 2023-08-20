@@ -9,9 +9,11 @@ namespace Dentica_Dentistry.Infrastructure.DAL.Repositories;
 internal sealed class PostgresUserRepository : IUserRepository
 {
     private readonly DbSet<User> _users;
+    private readonly DenticaDentistryDbContext _dbContext;
 
     public PostgresUserRepository(DenticaDentistryDbContext dbContext)
     {
+        _dbContext = dbContext;
         _users = dbContext.Users;
     }
 
@@ -22,4 +24,11 @@ internal sealed class PostgresUserRepository : IUserRepository
     public Task<User> GetByUsernameAsync(Username username) => _users.SingleOrDefaultAsync(x => x.Username == username);
 
     public async Task AddAsync(User user) => await _users.AddAsync(user);
+    public async Task ChangeUserRole(UserId userId, Role role)
+    {
+        var user = await _users.SingleOrDefaultAsync(x => x.UserId == userId);
+
+        user.Role = role;
+        await _dbContext.SaveChangesAsync();
+    }
 }
