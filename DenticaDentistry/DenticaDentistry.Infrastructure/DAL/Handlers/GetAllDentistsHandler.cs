@@ -1,6 +1,7 @@
 ﻿using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
+using DenticaDentistry.Core.Models;
 using DenticaDentistry.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ internal sealed class GetAllDentistsHandler : IQueryHandler<GetAllDentists,IEnum
 
     public async Task<IEnumerable<DentistDto>> HandlerAsync(GetAllDentists query)
     {
+        var pager = new Pager(query.PageIndex, query.PageSize);
         var dentists = await _dbContext.Dentists
             .Join(
                 _dbContext.Users,
@@ -30,6 +32,7 @@ internal sealed class GetAllDentistsHandler : IQueryHandler<GetAllDentists,IEnum
                     PhoneNumber = user.PhoneNumber,
                 }
             )
+            .Paginate(pager)
             .ToListAsync();
 
         return dentists;

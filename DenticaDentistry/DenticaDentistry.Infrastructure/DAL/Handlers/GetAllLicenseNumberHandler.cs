@@ -1,6 +1,7 @@
 ﻿using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
+using DenticaDentistry.Core.Models;
 using DenticaDentistry.Infrastructure.DAL;
 using DenticaDentistry.Infrastructure.DAL.Handlers;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,10 @@ internal class GetAllLicenseNumberHandler : IQueryHandler<GetAllLicenseNumber, I
 
     public async Task<IEnumerable<DentistWithLicenseNumberDto>> HandlerAsync(GetAllLicenseNumber query)
     {
+        var pager = new Pager(query.PageIndex, query.PageSize);
         var dentists = await _dbContext.Dentists
             .AsNoTracking()
+            .Paginate(pager)
             .ToListAsync();
 
         return dentists.Select(x => x.AsDentistWithLicenseNumberDto());

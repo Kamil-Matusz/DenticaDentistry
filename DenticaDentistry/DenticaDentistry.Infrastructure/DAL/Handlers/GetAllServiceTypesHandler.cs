@@ -1,6 +1,7 @@
 ﻿using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
+using DenticaDentistry.Core.Models;
 using DenticaDentistry.Infrastructure.DAL;
 using DenticaDentistry.Infrastructure.DAL.Handlers;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,10 @@ internal class GetAllServiceTypesHandler : IQueryHandler<GetAllServiceTypes, IEn
 
     public async Task<IEnumerable<ServiceTypeDto>> HandlerAsync(GetAllServiceTypes query)
     {
+        var pager = new Pager(query.PageIndex, query.PageSize);
         var serviceTypes = await _dbContext.ServiceTypes
             .AsNoTracking()
+            .Paginate(pager)
             .ToListAsync();
 
         return serviceTypes.Select(s => s.AsServiceTypesDto());
