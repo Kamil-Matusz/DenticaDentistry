@@ -117,5 +117,4 @@ public class ReservationsController : ControllerBase
         var reservations = await _getFutureUserReservationsHandler.HandlerAsync(new GetFutureUserReservations { UserId = userId });
         return Ok(reservations);
     }
-
 }

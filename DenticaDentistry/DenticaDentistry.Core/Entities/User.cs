@@ -26,4 +26,9 @@ public class User
         PhoneNumber = phoneNumber;
         Role = role;
     }
+    
+    public void ChangePassword(Password newPassword)
+    {
+        Password = newPassword;
+    }
 }

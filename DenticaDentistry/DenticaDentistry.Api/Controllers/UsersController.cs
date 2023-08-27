@@ -25,8 +25,9 @@ public class UsersController : ControllerBase
     private readonly ICommandHandler<SendEmail> _sendEmailHandler;
     private readonly ICommandHandler<CreateDentist> _createDentistHandler;
     private readonly ICommandHandler<ChangeUserRole> _changeUserRoleHandler;
+    private readonly ICommandHandler<ChangePassword> _changePasswordHandler;
 
-    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, ICommandHandler<SendEmail> sendEmailHandler, ICommandHandler<CreateDentist> createDentistHandler, ICommandHandler<ChangeUserRole> changeUserRoleHandler)
+    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, ICommandHandler<SendEmail> sendEmailHandler, ICommandHandler<CreateDentist> createDentistHandler, ICommandHandler<ChangeUserRole> changeUserRoleHandler, ICommandHandler<ChangePassword> changePasswordHandler)
     {
         _signUpHandler = signUpHandler;
         _getAllUsersHandler = getAllUsersHandler;
@@ -37,6 +38,7 @@ public class UsersController : ControllerBase
         _sendEmailHandler = sendEmailHandler;
         _createDentistHandler = createDentistHandler;
         _changeUserRoleHandler = changeUserRoleHandler;
+        _changePasswordHandler = changePasswordHandler;
     }
 
     [Authorize(Roles = "admin")]
@@ -145,5 +147,22 @@ public class UsersController : ControllerBase
         await _changeUserRoleHandler.HandlerAsync(command with { UserId = userId, Role  = command.Role });
         return Ok();
     }
-
+    
+    [Authorize]
+    [HttpPut("changePassword")]
+    [SwaggerOperation("Change the user's password")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult> ChangePassword(ChangePassword command)
+    {
+        if (string.IsNullOrWhiteSpace(User.Identity?.Name))
+        {
+            return NotFound();
+        }
+        var userId = Guid.Parse(User.Identity?.Name);
+        
+        await _changePasswordHandler.HandlerAsync(command with{ UserId = userId, NewPassword = command.NewPassword});
+        return Ok();
+    }
 }
