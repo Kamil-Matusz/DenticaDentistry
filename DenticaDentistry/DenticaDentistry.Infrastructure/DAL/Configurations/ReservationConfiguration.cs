@@ -11,6 +11,7 @@ internal sealed class ReservationConfiguration : IEntityTypeConfiguration<Reserv
     {
         builder.HasKey(x => x.ReservationId);
         builder.HasOne<User>().WithMany().HasForeignKey(x => x.UserId);
+        builder.HasOne<Dentist>().WithMany().HasForeignKey(x => x.DentistId);
         builder.Property(x => x.UserId)
             .IsRequired()
             .HasConversion(x => x.Value, x => new UserId(x));

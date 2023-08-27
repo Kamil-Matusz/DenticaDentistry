@@ -10,7 +10,7 @@ public class User
     public Password Password { get; private set; }
     public Fullname Fullname { get; private set; }
     public PhoneNumber PhoneNumber { get; private set; }
-    public Role Role { get; private set; }
+    public Role Role { get; set; }
 
     protected User()
     {

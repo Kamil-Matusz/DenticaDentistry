@@ -8,23 +8,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dentica_Dentistry.Infrastructure.DAL.Handlers;
 
-internal class GetAllServiceTypesHandler : IQueryHandler<GetAllServiceTypes, IEnumerable<ServiceTypeDto>>
+internal class GetAllLicenseNumberHandler : IQueryHandler<GetAllLicenseNumber, IEnumerable<DentistWithLicenseNumberDto>>
 {
     private readonly DenticaDentistryDbContext _dbContext;
 
-    public GetAllServiceTypesHandler(DenticaDentistryDbContext dbContext)
+    public GetAllLicenseNumberHandler(DenticaDentistryDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<ServiceTypeDto>> HandlerAsync(GetAllServiceTypes query)
+    public async Task<IEnumerable<DentistWithLicenseNumberDto>> HandlerAsync(GetAllLicenseNumber query)
     {
         var pager = new Pager(query.PageIndex, query.PageSize);
-        var serviceTypes = await _dbContext.ServiceTypes
+        var dentists = await _dbContext.Dentists
             .AsNoTracking()
             .Paginate(pager)
             .ToListAsync();
 
-        return serviceTypes.Select(s => s.AsServiceTypesDto());
+        return dentists.Select(x => x.AsDentistWithLicenseNumberDto());
     }
 }

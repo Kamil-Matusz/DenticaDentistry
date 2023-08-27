@@ -28,7 +28,7 @@ public class ReservationServiceTests
     public async Task add_reservation_should_succeed()
     {
         // Arrange
-        var command = new CreateReservation(Guid.NewGuid(), 1, "John Doe", DateTime.UtcNow.AddDays(1),Guid.NewGuid());
+        var command = new CreateReservation(Guid.NewGuid(), 1, "John Doe", DateTime.UtcNow.AddDays(1),Guid.NewGuid(),Guid.NewGuid());
         
         // Act
         var reservationId = await _reservationsService.CreateReservationAsync(command);

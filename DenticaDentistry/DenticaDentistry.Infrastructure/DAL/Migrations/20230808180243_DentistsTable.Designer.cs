@@ -3,17 +3,20 @@ using System;
 using DenticaDentistry.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DenticaDentistry.Infrastructure.DAL.Migrations
+namespace Dentica_Dentistry.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(DenticaDentistryDbContext))]
-    partial class DenticaDentistryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230808180243_DentistsTable")]
+    partial class DentistsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +80,6 @@ namespace DenticaDentistry.Infrastructure.DAL.Migrations
                     b.Property<string>("BookerName")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("DentistId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("DentistIndustryId")
                         .HasColumnType("integer");
 
@@ -90,8 +90,6 @@ namespace DenticaDentistry.Infrastructure.DAL.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("ReservationId");
-
-                    b.HasIndex("DentistId");
 
                     b.HasIndex("DentistIndustryId");
 
@@ -179,10 +177,6 @@ namespace DenticaDentistry.Infrastructure.DAL.Migrations
 
             modelBuilder.Entity("DenticaDentistry.Core.Entities.Reservation", b =>
                 {
-                    b.HasOne("DenticaDentistry.Core.Entities.Dentist", null)
-                        .WithMany()
-                        .HasForeignKey("DentistId");
-
                     b.HasOne("DenticaDentistry.Core.Entities.DentistIndustry", null)
                         .WithMany("Reservations")
                         .HasForeignKey("DentistIndustryId")

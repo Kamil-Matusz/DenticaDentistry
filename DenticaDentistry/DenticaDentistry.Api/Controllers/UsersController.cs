@@ -4,6 +4,7 @@ using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Application.Security;
 using DenticaDentistry.Application.Services;
+using DenticaDentistry.Core.Entities;
 using DenticaDentistry.Core.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +23,10 @@ public class UsersController : ControllerBase
     private readonly IQueryHandler<GetUser, UserDto> _getUserHandler;
     private readonly IQueryHandler<GetUserByName, UserDto> _getUserByNameHandler;
     private readonly ICommandHandler<SendEmail> _sendEmailHandler;
+    private readonly ICommandHandler<CreateDentist> _createDentistHandler;
+    private readonly ICommandHandler<ChangeUserRole> _changeUserRoleHandler;
 
-    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, ICommandHandler<SendEmail> sendEmailHandler)
+    public UsersController(ICommandHandler<SignUp> signUpHandler, IQueryHandler<GetAllUsers, IEnumerable<UserDto>> getAllUsersHandler, IQueryHandler<GetUser, UserDto> getUserHandler, ICommandHandler<SignIn> signInHandler,ITokenStorage tokenStorage, IQueryHandler<GetUserByName, UserDto> getUserByNameHandler, ICommandHandler<SendEmail> sendEmailHandler, ICommandHandler<CreateDentist> createDentistHandler, ICommandHandler<ChangeUserRole> changeUserRoleHandler)
     {
         _signUpHandler = signUpHandler;
         _getAllUsersHandler = getAllUsersHandler;
@@ -32,6 +35,8 @@ public class UsersController : ControllerBase
         _tokenStorage = tokenStorage;
         _getUserByNameHandler = getUserByNameHandler;
         _sendEmailHandler = sendEmailHandler;
+        _createDentistHandler = createDentistHandler;
+        _changeUserRoleHandler = changeUserRoleHandler;
     }
 
     [Authorize(Roles = "admin")]
@@ -90,6 +95,15 @@ public class UsersController : ControllerBase
         );
         await _sendEmailHandler.HandlerAsync(sendEmailCommand);
 
+        if (command.Role == "dentist")
+        {
+            var dentist = new CreateDentist(
+                DentistId: Guid.NewGuid(),
+                UserId: command.UserId);
+
+            await _createDentistHandler.HandlerAsync(dentist);
+        }
+
         return NoContent();
     }
 
@@ -119,4 +133,17 @@ public class UsersController : ControllerBase
         }
         return user;
     }
+
+    [Authorize(Roles = "admin")]
+    [HttpPatch("{userId:guid}")]
+    [SwaggerOperation("The administrator can change user roles")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult> ChangeUserRole(Guid userId, ChangeUserRole command)
+    {
+        await _changeUserRoleHandler.HandlerAsync(command with { UserId = userId, Role  = command.Role });
+        return Ok();
+    }
+
 }

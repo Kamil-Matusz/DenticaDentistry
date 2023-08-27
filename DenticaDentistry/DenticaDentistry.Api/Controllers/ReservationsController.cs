@@ -37,7 +37,8 @@ public class ReservationsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllReservations([FromQuery] GetAllReservations query) => Ok(await _getAllReservationHandler.HandlerAsync(query));
+    public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllReservations([FromQuery] GetAllReservations query) 
+        => Ok(await _getAllReservationHandler.HandlerAsync(query));
 
     /*[HttpGet("{id:guid}")]
     public async Task<ActionResult<ReservationDto>> GetReservation(Guid id)

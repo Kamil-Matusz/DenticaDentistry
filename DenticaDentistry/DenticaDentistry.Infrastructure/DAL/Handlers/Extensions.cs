@@ -33,4 +33,10 @@ internal static class Extensions
     {
         Name = entity.ServiceTypeName
     };
+
+    public static DentistWithLicenseNumberDto AsDentistWithLicenseNumberDto(this Dentist entity) => new()
+    {
+        DentistId = entity.DentistId,
+        LicenseNumber = entity.LicenseNumber
+    };
 }

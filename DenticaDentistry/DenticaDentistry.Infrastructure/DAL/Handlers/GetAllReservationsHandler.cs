@@ -1,6 +1,7 @@
 using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Queries;
+using DenticaDentistry.Core.Models;
 using DenticaDentistry.Infrastructure.DAL;
 using DenticaDentistry.Infrastructure.DAL.Handlers;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,10 @@ internal sealed class GetAllReservationsHandler : IQueryHandler<GetAllReservatio
     
     public async Task<IEnumerable<ReservationDto>> HandlerAsync(GetAllReservations query)
     {
+        var pager = new Pager(query.PageIndex, query.PageSize);
         var reservations = await _dbContext.Reservations
             .AsNoTracking()
+            .Paginate(pager)
             .ToListAsync();
 
         return reservations.Select(x => x.AsReservationDto());

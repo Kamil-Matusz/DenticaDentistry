@@ -4,24 +4,31 @@ using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Infrastructure.DAL;
 using DenticaDentistry.Infrastructure.DAL.Handlers;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DenticaDentistry.Core.Models;
 
-namespace Dentica_Dentistry.Infrastructure.DAL.Handlers;
-
-internal class GetAllDentistServicesHandler : IQueryHandler<GetAllDentistServices, IEnumerable<DentistIndustryDto>>
+namespace Dentica_Dentistry.Infrastructure.DAL.Handlers
 {
-    private readonly DenticaDentistryDbContext _dbContext;
-
-    public GetAllDentistServicesHandler(DenticaDentistryDbContext dbContext)
+    internal class GetAllDentistServicesHandler : IQueryHandler<GetAllDentistServices, IEnumerable<DentistIndustryDto>>
     {
-        _dbContext = dbContext;
-    }
+        private readonly DenticaDentistryDbContext _dbContext;
 
-    public async Task<IEnumerable<DentistIndustryDto>> HandlerAsync(GetAllDentistServices query)
-    {
-        var services = await _dbContext.DentistIndustries
-            .AsNoTracking()
-            .ToListAsync();
+        public GetAllDentistServicesHandler(DenticaDentistryDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
-        return services.Select(x => x.AsDentistIndustryDto());
+        public async Task<IEnumerable<DentistIndustryDto>> HandlerAsync(GetAllDentistServices query)
+        {
+            var pager = new Pager(query.PageIndex, query.PageSize);
+            
+            var servicesList = _dbContext.DentistIndustries.AsNoTracking();
+            var paginatedServicesList = servicesList.Paginate(pager);
+            var services = await paginatedServicesList.ToListAsync();
+
+            return services.Select(x => x.AsDentistIndustryDto());
+        }
     }
 }
