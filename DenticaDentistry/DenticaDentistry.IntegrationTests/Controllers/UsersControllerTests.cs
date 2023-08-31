@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Text;
 using DenticaDentistry.Application.Commands;
 using DenticaDentistry.Application.DTO;
 using DenticaDentistry.Application.Services;
@@ -8,6 +9,7 @@ using DenticaDentistry.Core.ValueObjects;
 using DenticaDentistry.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Shouldly;
 using Xunit;
 
@@ -84,7 +86,6 @@ public class UsersControllerTests : BaseControllerTests,IDisposable
         userDto.ShouldNotBeNull();
         userDto.UserId.ShouldBe(user.UserId.Value);
     }
-
     
     private readonly TestDatabase _testDatabase;
     

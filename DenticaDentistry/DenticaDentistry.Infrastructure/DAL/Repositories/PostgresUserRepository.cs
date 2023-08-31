@@ -31,4 +31,10 @@ internal sealed class PostgresUserRepository : IUserRepository
         user.Role = role;
         await _dbContext.SaveChangesAsync();
     }
+    
+    public async Task UpdateAsync(User user)
+    {
+        _users.Update(user);
+        await _dbContext.SaveChangesAsync();
+    }
 }

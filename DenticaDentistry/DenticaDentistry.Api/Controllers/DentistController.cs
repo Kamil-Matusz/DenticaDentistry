@@ -14,12 +14,14 @@ public class DentistController : ControllerBase
     private readonly ICommandHandler<AddLicenseNumber> _addDentistLicenseHandler;
     private readonly IQueryHandler<GetAllLicenseNumber, IEnumerable<DentistWithLicenseNumberDto>> _getAllLicenseNumber;
     private readonly IQueryHandler<GetAllDentists, IEnumerable<DentistDto>> _getAllDentists;
+    private readonly IQueryHandler<GetFutureDentistReservations, IEnumerable<DentistReservationsDto>> _getDentistFutureReservationsHandler;
 
-    public DentistController(ICommandHandler<AddLicenseNumber> addDentistLicenseHandler, IQueryHandler<GetAllLicenseNumber, IEnumerable<DentistWithLicenseNumberDto>> getAllLicenseNumber, IQueryHandler<GetAllDentists, IEnumerable<DentistDto>> getAllDentists)
+    public DentistController(ICommandHandler<AddLicenseNumber> addDentistLicenseHandler, IQueryHandler<GetAllLicenseNumber, IEnumerable<DentistWithLicenseNumberDto>> getAllLicenseNumber, IQueryHandler<GetAllDentists, IEnumerable<DentistDto>> getAllDentists, IQueryHandler<GetFutureDentistReservations, IEnumerable<DentistReservationsDto>> getDentistFutureReservationsHandler)
     {
         _addDentistLicenseHandler = addDentistLicenseHandler;
         _getAllLicenseNumber = getAllLicenseNumber;
         _getAllDentists = getAllDentists;
+        _getDentistFutureReservationsHandler = getDentistFutureReservationsHandler;
     }
     
     [Authorize(Roles = "admin")]
@@ -50,4 +52,22 @@ public class DentistController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<DentistWithLicenseNumberDto>>> GetAllDentists([FromQuery] GetAllDentists query) 
         => Ok(await _getAllDentists.HandlerAsync(query));
+
+    [HttpGet]
+    [Authorize(Roles = "dentist")]
+    [Route("displayFutureReservations")]
+    [SwaggerOperation("Get list of all future reservations")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<DentistReservationsDto>>> GetListsFutureReservations([FromQuery] GetFutureDentistReservations query)
+    {
+        if (string.IsNullOrWhiteSpace(User.Identity?.Name))
+        {
+            return NotFound();
+        }
+        var userId = Guid.Parse(User.Identity?.Name);
+        return Ok(await _getDentistFutureReservationsHandler.HandlerAsync(new GetFutureDentistReservations {UserId = userId}));
+    }
 }

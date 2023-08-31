@@ -39,4 +39,12 @@ internal static class Extensions
         DentistId = entity.DentistId,
         LicenseNumber = entity.LicenseNumber
     };
+
+    public static DentistReservationsDto AsDentistReservationsDto(this Reservation entity) => new()
+    {
+        ReservationId = entity.ReservationId,
+        DentistIndustryId = entity.DentistIndustryId,
+        ReservationDate = entity.ReservationDate,
+        BookerName = entity.BookerName
+    };
 }

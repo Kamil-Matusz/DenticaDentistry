@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using DenticaDentistry.Application.Commands;
+using DenticaDentistry.Application.DTO;
+using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Application.Services;
 using Shouldly;
 using Xunit;
@@ -27,5 +29,20 @@ public class ServiceTypesControllerTests : BaseControllerTests,IDisposable
         var response = await Client.PostAsJsonAsync("serviceTypes",command);
         
         response.StatusCode.ShouldBeOneOf(HttpStatusCode.OK,HttpStatusCode.Unauthorized);
+    }
+    
+    [Fact]
+    public async Task GetAllDentistServicesTypes_ShouldReturnOkWithTypesList()
+    {
+        // Arrange
+        var query = new GetAllServiceTypes();
+
+        // Act
+        var response = await Client.GetAsync("serviceTypes");
+
+        // Assert
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        var types = await response.Content.ReadFromJsonAsync<ServiceTypeDto[]>();
+        types.ShouldNotBeNull();
     }
 }

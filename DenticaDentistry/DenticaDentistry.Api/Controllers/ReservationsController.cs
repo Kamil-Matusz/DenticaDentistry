@@ -58,12 +58,17 @@ public class ReservationsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> AddReservation(int dentistIndustryId,CreateReservation command)
+    public async Task<ActionResult> AddReservation(CreateReservation command)
     {
+        if (string.IsNullOrWhiteSpace(User.Identity?.Name))
+        {
+            return NotFound();
+        }
+        var userId = Guid.Parse(User.Identity?.Name);
         await _createReservationHandler.HandlerAsync(command with
         {
             ReservationId = Guid.NewGuid(),
-            DentistIndustryId = dentistIndustryId,
+            UserId = userId
         });
         return Ok();
     }
@@ -117,5 +122,4 @@ public class ReservationsController : ControllerBase
         var reservations = await _getFutureUserReservationsHandler.HandlerAsync(new GetFutureUserReservations { UserId = userId });
         return Ok(reservations);
     }
-
 }
