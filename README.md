@@ -36,7 +36,7 @@ The project uses docker images:
 The application includes a Health Check mechanism to ensure the health and availability of various components.</br>
 Checked components :
 - application operations
-- database connection
+- database connection</br>
 HealthChecks run under the endpoint:</br>
 <b>"healthCheckStatus"</b>
 
