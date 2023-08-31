@@ -37,8 +37,8 @@ The application includes a Health Check mechanism to ensure the health and avail
 Checked components :
 - application operations
 - database connection
-HealthChecks run under the endpoint:
-<b>""ealthCheckStatus</b>
+HealthChecks run under the endpoint:</br>
+<b>"healthCheckStatus"</b>
 
 
 
