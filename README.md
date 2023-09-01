@@ -33,8 +33,7 @@ The project uses docker images:
 | johndoe@test.com      | passowrd   | user |
 
 ## Health Checks
-The application includes a Health Check mechanism to ensure the health and availability of various components.</br>
-HealthChecks run under the endpoint:</br>
+The application includes a Health Check mechanism to ensure the health and availability of various components.HealthChecks run under the endpoint:</br>
 <b>"healthCheckStatus"</b></br>
 Checked components :
 - application operations
