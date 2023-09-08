@@ -37,4 +37,14 @@ internal sealed class PostgresUserRepository : IUserRepository
         _users.Update(user);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<string> GetUserEmail(UserId id)
+    {
+        var email = await _dbContext.Users
+            .Where(x => x.UserId == id)
+            .Select(x => x.Email)
+            .SingleOrDefaultAsync();
+
+        return email;
+    }
 }
