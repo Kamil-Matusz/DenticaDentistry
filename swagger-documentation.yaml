@@ -1,0 +1,1119 @@
+openapi: 3.0.1
+info:
+  title: Dentica Dentistry
+  version: V1
+paths:
+  /dentists/{dentistId}/addLicensePlate:
+    patch:
+      tags:
+        - Dentist
+      summary: Added license number to the dentist
+      parameters:
+        - name: dentistId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: DentistId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: LicenseNumber
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  /dentists/allLicenseNumberList:
+    get:
+      tags:
+        - Dentist
+      summary: Get list of all dentists license
+      parameters:
+        - name: PageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistWithLicenseNumberDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistWithLicenseNumberDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistWithLicenseNumberDto'
+        '400':
+          description: Bad Request
+  /dentists/getAllDentists:
+    get:
+      tags:
+        - Dentist
+      summary: Get list of all dentists
+      parameters:
+        - name: PageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistWithLicenseNumberDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistWithLicenseNumberDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistWithLicenseNumberDto'
+        '400':
+          description: Bad Request
+  /services:
+    get:
+      tags:
+        - DentistIndustries
+      summary: Displaying all dentist services
+      parameters:
+        - name: PageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistIndustryDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistIndustryDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentistIndustryDto'
+        '400':
+          description: Bad Request
+    post:
+      tags:
+        - DentistIndustries
+      summary: Creating new dentist service
+      parameters:
+        - name: DentistIndustryId
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: Name
+          in: query
+          schema:
+            type: string
+        - name: Price
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: Description
+          in: query
+          schema:
+            type: string
+        - name: ServiceTypeId
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+  /services/ChangeServiceName/{dentistIndustryId}:
+    put:
+      tags:
+        - DentistIndustries
+      summary: Change dentist service name
+      parameters:
+        - name: dentistIndustryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: DentistIndustryId
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: Name
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+  /services/ChangeServicePrice/{dentistIndustryId}:
+    put:
+      tags:
+        - DentistIndustries
+      summary: Change dentist service price
+      parameters:
+        - name: dentistIndustryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: DentistIndustryId
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: Price
+          in: query
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+  /services/{dentistIndustryId}:
+    delete:
+      tags:
+        - DentistIndustries
+      summary: Delete dentist service
+      parameters:
+        - name: dentistIndustryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+    get:
+      tags:
+        - DentistIndustries
+      summary: Displaying Dentist Service By Id
+      parameters:
+        - name: dentistIndustryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: DentistServiceId
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DentistIndustryDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DentistIndustryDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DentistIndustryDto'
+        '404':
+          description: Not Found
+  /reservations:
+    get:
+      tags:
+        - Reservations
+      summary: Displaying all reservations
+      parameters:
+        - name: PageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    post:
+      tags:
+        - Reservations
+      summary: Creating reservation for the service
+      parameters:
+        - name: dentistIndustryId
+          in: query
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReservation'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateReservation'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateReservation'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /reservations/{reservationId}:
+    put:
+      tags:
+        - Reservations
+      summary: Change reservation date
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeReservationDate'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ChangeReservationDate'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ChangeReservationDate'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - Reservations
+      summary: Delete reservation for the dentist service
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /reservations/allUserReservations:
+    get:
+      tags:
+        - Reservations
+      summary: Get list of reservation by user
+      parameters:
+        - name: UserId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /reservations/futureUserReservations:
+    get:
+      tags:
+        - Reservations
+      summary: Get list of future reservation by user
+      parameters:
+        - name: UserId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /serviceTypes:
+    get:
+      tags:
+        - ServiceTypes
+      summary: Displaying all service types
+      parameters:
+        - name: PageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceTypeDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceTypeDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceTypeDto'
+        '400':
+          description: Bad Request
+    post:
+      tags:
+        - ServiceTypes
+      summary: Creating new service type
+      parameters:
+        - name: ServiceTypeId
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: Name
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+  /serviceTypes/{serviceTypeId}:
+    put:
+      tags:
+        - ServiceTypes
+      summary: Change dentist service name
+      parameters:
+        - name: serviceTypeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: ServiceTypeId
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: name
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get list of all users
+      parameters:
+        - name: query
+          in: query
+          schema:
+            $ref: '#/components/schemas/GetAllUsers'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /users/me:
+    get:
+      tags:
+        - Users
+      summary: The logged in user can view information about himself
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+  /users/{userId}:
+    get:
+      tags:
+        - Users
+      summary: Displaying information about user based on ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    patch:
+      tags:
+        - Users
+      summary: The administrator can change user roles
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeUserRole'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ChangeUserRole'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ChangeUserRole'
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /users/signUp:
+    post:
+      tags:
+        - Users
+      summary: Create the user account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /users/signIn:
+    post:
+      tags:
+        - Users
+      summary: Sign in the user and return the JSON Web Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignIn'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SignIn'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SignIn'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/JwtDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/JwtDto'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /users/{username}:
+    get:
+      tags:
+        - Users
+      summary: Displaying information about user based on username
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ChangeReservationDate:
+      type: object
+      properties:
+        reservationId:
+          type: string
+          format: uuid
+        reservationDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ChangeUserRole:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        role:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CreateReservation:
+      type: object
+      properties:
+        reservationId:
+          type: string
+          format: uuid
+        dentistIndustryId:
+          type: integer
+          format: int32
+        bookerName:
+          type: string
+          nullable: true
+        reservationDate:
+          type: string
+          format: date-time
+        userId:
+          type: string
+          format: uuid
+        dentistId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    DentistIndustryDto:
+      type: object
+      properties:
+        dentistIndustryId:
+          type: integer
+          format: int32
+        serviceTypeId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: double
+        description:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DentistWithLicenseNumberDto:
+      type: object
+      properties:
+        dentistId:
+          type: string
+          format: uuid
+        licenseNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GetAllUsers:
+      type: object
+      additionalProperties: false
+    JwtDto:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+    ReservationDto:
+      type: object
+      properties:
+        reservationId:
+          type: string
+          format: uuid
+        dentistIndustryId:
+          type: integer
+          format: int32
+        bookerName:
+          type: string
+          nullable: true
+        reservationDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ServiceTypeDto:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SignIn:
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SignUp:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        email:
+          type: string
+          nullable: true
+        username:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+        fullname:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        role:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UserDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        username:
+          type: string
+          nullable: true
+        fullname:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
