@@ -28,6 +28,7 @@ public static class Extensions
         
         services.AddSingleton<IClock, Clock>();
         services.AddScoped<IEmailService,EmailService>();
+        services.AddScoped<IReservationsService, ReservationsService>();
         
         return services;
     }

@@ -10,4 +10,6 @@ public interface IUserRepository
     Task<User> GetByUsernameAsync(Username username);
     Task AddAsync(User user);
     Task ChangeUserRole(UserId userId, Role role);
+    Task UpdateAsync(User user);
+    Task<string> GetUserEmail(UserId id);
 }

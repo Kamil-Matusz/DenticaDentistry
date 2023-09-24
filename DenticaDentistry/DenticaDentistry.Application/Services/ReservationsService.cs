@@ -9,12 +9,14 @@ public class ReservationsService : IReservationsService
 {
     private readonly IClock _clock;
     private readonly IReservationRepository _reservationRepository;
+    private readonly IUserRepository _userRepository;
 
-    public ReservationsService(IClock clock,IReservationRepository reservationRepository)
+    public ReservationsService(IClock clock,IReservationRepository reservationRepository, IUserRepository userRepository)
     {
         
         _clock = clock;
         _reservationRepository = reservationRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<IEnumerable<ReservationDto>> GetAllReservationsAsync()
@@ -94,7 +96,13 @@ public class ReservationsService : IReservationsService
 
        dentistIndustryId.RemoveReservation(command.ReservationId);
        await _reservationRepository.DeleteAsync(dentistIndustryId);
-        return true;
+       return true;
+    }
+
+    public async Task<string> GetUserEmail(Guid userId)
+    {
+        var userEmail = await _userRepository.GetUserEmail(userId);
+        return userEmail;
     }
 
     private async Task<DentistIndustry> GetReservationsAsync(Guid reservationId)

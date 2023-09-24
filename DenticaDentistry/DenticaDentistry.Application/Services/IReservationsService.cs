@@ -11,4 +11,5 @@ public interface IReservationsService
     Task<Guid?> CreateReservationAsync(CreateReservation command);
     Task<bool> UpdateReservationDateAsync(ChangeReservationDate command);
     Task<bool> DeleteReservationAsync(DeleteReservation command);
+    Task<string> GetUserEmail(Guid userId);
 }

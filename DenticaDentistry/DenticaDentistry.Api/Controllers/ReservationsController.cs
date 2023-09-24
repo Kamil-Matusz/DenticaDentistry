@@ -19,8 +19,10 @@ public class ReservationsController : ControllerBase
     private readonly IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> _getAllReservationHandler;
     private readonly IQueryHandler<GetAllUserReservations, IEnumerable<ReservationDto>> _getAllUserReservationsHandler;
     private readonly IQueryHandler<GetFutureUserReservations, IEnumerable<ReservationDto>> _getFutureUserReservationsHandler;
+    private readonly ICommandHandler<SendEmail> _sendEmailHandler;
+    private readonly IReservationsService _reservationsService;
 
-    public ReservationsController(ICommandHandler<CreateReservation> createReservationHandler, ICommandHandler<DeleteReservation> deleteReservationHandler, ICommandHandler<ChangeReservationDate> changeReservationDateHandler, IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> getAllReservationHandler, IQueryHandler<GetAllUserReservations, IEnumerable<ReservationDto>> getAllUserReservationsHandler, IQueryHandler<GetFutureUserReservations, IEnumerable<ReservationDto>> getFutureUserReservationsHandler)
+    public ReservationsController(ICommandHandler<CreateReservation> createReservationHandler, ICommandHandler<DeleteReservation> deleteReservationHandler, ICommandHandler<ChangeReservationDate> changeReservationDateHandler, IQueryHandler<GetAllReservations, IEnumerable<ReservationDto>> getAllReservationHandler, IQueryHandler<GetAllUserReservations, IEnumerable<ReservationDto>> getAllUserReservationsHandler, IQueryHandler<GetFutureUserReservations, IEnumerable<ReservationDto>> getFutureUserReservationsHandler, ICommandHandler<SendEmail> sendEmailHandler, IReservationsService reservationsService)
     {
         _createReservationHandler = createReservationHandler;
         _deleteReservationHandler = deleteReservationHandler;
@@ -28,6 +30,8 @@ public class ReservationsController : ControllerBase
         _getAllReservationHandler = getAllReservationHandler;
         _getAllUserReservationsHandler = getAllUserReservationsHandler;
         _getFutureUserReservationsHandler = getFutureUserReservationsHandler;
+        _sendEmailHandler = sendEmailHandler;
+        _reservationsService = reservationsService;
     }
     
     [Authorize(Roles = "admin")]
@@ -58,13 +62,27 @@ public class ReservationsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> AddReservation(int dentistIndustryId,CreateReservation command)
+    public async Task<ActionResult> AddReservation(CreateReservation command)
     {
+        if (string.IsNullOrWhiteSpace(User.Identity?.Name))
+        {
+            return NotFound();
+        }
+        var userId = Guid.Parse(User.Identity?.Name);
         await _createReservationHandler.HandlerAsync(command with
         {
             ReservationId = Guid.NewGuid(),
-            DentistIndustryId = dentistIndustryId,
+            UserId = userId
         });
+
+        var email = _reservationsService.GetUserEmail(userId);
+        var sendEmailCommand = new SendEmail(
+            Recipient: await email,
+            Subject: "Your Reservation was created",
+            Body: $"Reservation Date: {command.ReservationDate}"
+        );
+        await _sendEmailHandler.HandlerAsync(sendEmailCommand);
+        
         return Ok();
     }
 
@@ -117,5 +135,4 @@ public class ReservationsController : ControllerBase
         var reservations = await _getFutureUserReservationsHandler.HandlerAsync(new GetFutureUserReservations { UserId = userId });
         return Ok(reservations);
     }
-
 }

@@ -36,5 +36,13 @@ The project uses docker images:
 | admin@test.com        | password   | admin|
 | johndoe@test.com      | passowrd   | user |
 
+## Health Checks
+The application includes a Health Check mechanism to ensure the health and availability of various components.HealthChecks run under the endpoint:</br>
+<b>"healthCheckStatus"</b></br>
+Checked components :
+- application operations
+- database connection</br>
+
+
 
 
