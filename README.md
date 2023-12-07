@@ -30,6 +30,18 @@ The project uses docker images:
 - Postgres: A postgres database image that stores application data
 - MailCatcher: capturing and displaying emails in the development environment
 
+To create docker container type the following command:
+
+```
+docker-compose up -d
+```
+
+To run projectL
+```
+cd cd DenticaDentistry/DenticaDentistry.Api
+dotnet run
+```
+
 ## Defaul accounts
 | Login                 | Password   | Role |
 |-----------------------|------------|------|
