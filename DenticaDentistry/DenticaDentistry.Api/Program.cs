@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Dentica_Dentistry.Infrastructure.Logging;
 using DenticaDentistry.Application;
 using DenticaDentistry.Core;
 using DenticaDentistry.Infrastructure;

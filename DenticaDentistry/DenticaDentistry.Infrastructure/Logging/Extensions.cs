@@ -1,10 +1,11 @@
 ﻿using DenticaDentistry.Application.Abstractions;
+using DenticaDentistry.Infrastructure.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 
-namespace DenticaDentistry.Infrastructure.Logging;
+namespace Dentica_Dentistry.Infrastructure.Logging;
 
 public static class Extensions
 {

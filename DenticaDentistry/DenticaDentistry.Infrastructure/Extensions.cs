@@ -1,4 +1,5 @@
 using Dentica_Dentistry.Infrastructure.Auth;
+using Dentica_Dentistry.Infrastructure.Logging;
 using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Application.Queries;
 using DenticaDentistry.Infrastructure.DAL;
