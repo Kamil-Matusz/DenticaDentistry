@@ -1,6 +1,8 @@
 ﻿using DenticaDentistry.Application.Abstractions;
 using DenticaDentistry.Core.Entities;
 using DenticaDentistry.Application.Services;
+using DenticaDentistry.Application.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DenticaDentistry.Application;
@@ -19,6 +21,21 @@ public static class Extensions
         });*/
         //services.AddScoped<IReservationsService,ReservationsService>();
         //services.AddScoped<IDentistsService,DentistsService>();
+
+        services.AddFluentValidation(fv => fv
+            .RegisterValidatorsFromAssemblyContaining<DentistDtoValidator>()
+            .RegisterValidatorsFromAssemblyContaining<ReservationDtoValidator>()
+            .RegisterValidatorsFromAssemblyContaining<SignUpCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<SignInCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<CreateReservationCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<DeleteReservationCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<AddLicenseNumberCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<ChangeDentistServiceNameCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<ChangeDentistServicePriceCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<ChangePasswordCommandValidator>()
+            .RegisterValidatorsFromAssemblyContaining<DeleteDentistServiceCommandValidator>()
+        );
+        
         var applicationAssembly = typeof(ICommandHandler<>).Assembly;
 
         services.Scan(s => s.FromAssemblies(applicationAssembly)
