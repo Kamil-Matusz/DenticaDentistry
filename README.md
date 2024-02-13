@@ -5,6 +5,7 @@ Dental salon with the possibility of booking services and operations on services
 - C# 11
 - .NET 6.0
 - .NET JWT
+- FluentValidation
 - Entity Framework Core
 - PostgreSQL
 - Docker
@@ -46,7 +47,7 @@ dotnet run
 | Login                 | Password   | Role |
 |-----------------------|------------|------|
 | admin@test.com        | password   | admin|
-| johndoe@test.com      | passowrd   | user |
+| johndoe@test.com      | password   | user |
 
 ## Health Checks
 The application includes a Health Check mechanism to ensure the health and availability of various components.HealthChecks run under the endpoint:</br>
